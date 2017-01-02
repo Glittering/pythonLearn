@@ -1,4 +1,6 @@
-def move (n, a, b, c):
+# -*- coding:utf-8 -*-
+#汉诺塔
+def move (n, a, b, c):	
     if n == 1:
         print a + '->' + c
 
@@ -8,3 +10,13 @@ def move (n, a, b, c):
 	move (n-1, b, a, c)
 
 move (3, 'a', 'b', 'c')
+
+#阶乘
+def factorial (a, b):
+    if b == a:
+        return b
+    else:
+        sum = b * factorial (a,b-1)
+    return sum 
+print '***************'
+print factorial (2, 4)
