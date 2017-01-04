@@ -287,5 +287,45 @@ python的多态因为是动态的，所以不检测类型。
 json.load() 把文件或者任何对象 File-like Object 当作json类型读取。
 	2_5_4.py
 
+多重继承的公共方法，只被调用一次。
+	2_5_5.py
+
+type() 函数获取变量的类型，它返回一个 Type 对象
+
+dir() 函数获取变量的所有属性
+
+获取或者设置对象的属性，就需要用 getattr() 和 setattr( )函数
+	getattr(s, 'name')  # 获取name属性
+	setattr(s, 'name', 'Adam')  # 设置新的name属性
+	2_5_6.py
+
+##2016-1-3
+
+__str__和__repr__方法 print 默认调用
+	2_6_2.py
+
+__cmp__ 默认sorted调用
+	2_6_3.py
+
+__len__() 返回元素的个数
+	2_6_4.py
+
+ational类来表示有理数
+	2_6_5.py
+
+__int__(): __float__()。
+	2_6_6.py
+
+score(self)是get方法，用@property装饰	
+score(self, score)是set方法，用@score.setter装饰
+	只有第一个时是只读方法
+	2_6_7.py
+
+__slots__ 限制添加的属性
+ __slots__ = ('name', 'gender', 'score')
+	2_6_8.py
+
+一个类实例也可以变成一个可调用对象，只需要实现一个特殊方法__call__()。
+	2_6_9.py
 
 
