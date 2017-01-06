@@ -1,0 +1,4 @@
+pip 和apt 一样 给 python 装东西
+pip list 列出安装的 所有 python 模块
+在html中加python，用$+代码
+
