@@ -1,0 +1,12 @@
+首先需要说明的是，Apaceh服务器没有官方的64位版本，只有民间的高手自己制作的。下面是具体的安装步骤。
+
+在https://blackdot.be/download-archive/ 下载64位的Apache服务器。目前的版本是2.2.19，下载之后的压缩包名为httpd-2.2.19-win64.rar；
+将该包解压至一个目录，如我的目录为E:\Apache2.2.19；
+修改conf文件夹下的httpd.conf文件：
+将文件中的/httpd-2.2-x64全部替换为自己的解压目录，如E:/Apache2.2.19，注意这里的路径中必须使用斜杠“/”；
+将Listen 80改为Listen 8080，若已开启IIS，则80端口就不能用了；
+将#LoadModule rewrite_module modules/mod_rewrite.so这一行最前面的#去掉。
+执行安装命令。通过命令行进入自己的安装目录下的bin文件夹，如E:\Apache2.2.19\bin，执行命令httpd.exe -k install，
+这样就把apache加入了系统服务，默认服务名为Apache2.2。启动服务的命令为httpd.exe -k start。
+测试安装是否成功。开启服务，运行Apache服务器后，打开浏览器输入http://localhost:8080/，
+如果页面显示It works!，则表示安装成功，Apache服务器可以正常使用。
