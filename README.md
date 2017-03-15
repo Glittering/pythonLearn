@@ -329,3 +329,52 @@ __slots__ 限制添加的属性
 	2_6_9.py
 
 
+##2017年 03月 13日 星期一 08:53:58 CST
+
+1. replace 可以将第一个字符串用第二个替代
+
+2. python的比较可以多级并联    -3&lt;-2&lt;-1   *True*
+
+3. True的数值相当于1
+
+4. 浮点和整数可以比较
+
+5. in 成员运算符： 测试前者是否存在于后面的**集合**中
+
+6. is 身份运算符： 归属关系。
+	身份  类型  值 都相同
+
+7. 布尔运算符： not  and  or
+
+8. range(1,11) 生成1-10
+
+9. 格式化输出
+    print ('%d'%(2))
+    print ('{}'.format(2))
+    print ('{1},{2}'.format(1,2))
+    print ('{tab},{label}'.format('tab'=2;'label'=1))
+
+10. print 在py3中可以用 print(content,end='') 以''中的内容结尾
+    py2中 只能用 sys.stdout.write() 来输出但不换行
+
+11. sum() 可以直接对list求和
+
+12. sorted(list)
+    sorted(list,reverse=True) 逆序
+    
+13. ipython python的终端
+
+
+#2017年 03月 14日 星期二 08:50:38 CST
+
+1. string.punctuation 所有符号
+    和split一同使用可以切分字符串
+    和strip一同使用删除所有包含标点
+
+2. 可以用转换成set来去除重复元素
+
+3. lambda生成简单函数 
+
+4. with ... as ... 打开文件，并传参。 安全做法，自动关闭。
+
+
