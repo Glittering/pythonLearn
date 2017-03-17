@@ -213,9 +213,52 @@ urlopen 可以打开 r = urllib2.Request(url)
     clear		clear the dict , but the object exist still
     pop
     popitem		random pop a key:values
+    copy		if nest . the son will not change together
+    iteration:
+        iterkeys  itervalues  iteritems
+    view:  read the datas to memory . so faster than hard disk.
+        viewkeys viewvalues viewitems
 4. set
 5. array
     import numpy	from numpy import array
+
+
+#2017年 03月 15日 星期三 14:36:54 CST
+
+1. input	get the primary type of input
+2. raw_input	get the string of input
+3. complex	plural type
+##sentence
+1. print in same line:
+    print 'adf',
+2. assignment
+3. lead statement
+4. exec do the python statement in files or string
+5. eval()  what is this???
+        执行字符串中的算术表达式
+6. judge statement
+
+
+#2017年 03月 16日 星期四 14:10:28 CST
+1. range(9,0,-1)    made squence
+2. 
+
+##statement sepreter
+1. \
+2. '''  '''
+3. ( )
+
+##function
+1. *arg  形成元组
+2. **arg 传入字典**  接收 age=40 
+3. global  
+4. 闭包
+5. enumerate() 枚举
+    enumerate(l,3)  l is a list
+
+
+
+
 
 
 #the different betten 2 and 3
@@ -225,7 +268,7 @@ urlopen 可以打开 r = urllib2.Request(url)
 4. 2中有repr()
 5. print 2中是个字符串，3中是方法
 6. *has_key* is covered by *in*
-
+7. merge input and raw_input as **input**
 
 **doTheThings**:
 1. *args* and **args**
@@ -234,12 +277,13 @@ urlopen 可以打开 r = urllib2.Request(url)
 4. utf-8和unicode
 5. range() 2中是生成一个lista 3中返回一个range对象
 6. xrange() 3中取消了。 返回一个xrange对象
-7. 
+7. *dict.iteration* is killed in 3!!!!!!
+8. view patten for disk is killed also!!!
 
 
 **字符串逆序**
 1. 字符串的方法
-2. ''.join(list[::-])
+2. ''.join(list[::-1])
 3. ''.join(l.reverse())
 
 **一些方法**
@@ -248,3 +292,11 @@ urlopen 可以打开 r = urllib2.Request(url)
 3. zip() 将序列相同索引上的元素合并到元组当中，返回列表形式
 4. map() 同zip，以长序列为主
 5. in
+6. copy module
+    + copy.copy()	shallow copy, copy the object only 
+    + copy.deepcopy()	copy the object and methods
+7. random
+    + random.shrffle()	将列表打乱序列
+    + random.choice('1','2','3')	随机选择一个
+
+
