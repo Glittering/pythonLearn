@@ -36,7 +36,7 @@
 
 --------------
 1. Python3不像2x中酷虎的和服务器模块结构散乱，Python3中把这些打包成为了2个包，就是http与urllib，详解如下：
-http会处理所有客户端--服务器http请求的具体细节，其中：
+http会处理所有客户端--服务器http请求的具体细节，其中：    
 （1）client会处理客户端的部分
 （2）server会协助你编写Python web服务器程序
 （3）cookies和cookiejar会处理cookie，cookie可以在请求中存储数据
