@@ -1,0 +1,632 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<title>第十一章：django通用视图_Django_91code</title>
+<meta name="keywords" content="python,django" />
+<meta name="description" content="这里需要再次回到本书的主题： 在最坏的情况下， Web 开发是一项无聊而且单调的工作。 到目前为止，我们已经介绍了 Django 怎样在模型和模板的层面上减小开发的单调性" />
+<link href="../../templets/default/style/dedecms.css" rel="stylesheet" media="screen" type="text/css" />
+<script language="javascript" type="text/javascript" src="/91code/include/dedeajax2.js"></script>
+</head>
+<body class="articleview">
+<div class="header_top">  
+    <div class="w960 center">  
+     <span id="time" class="time">欢迎来到 91code 代码站</span>
+     <div class="toplinks"><a href="/91code/plus/heightsearch.php" target="_blank">高级搜索</a>|<a href="/91code/data/sitemap.html" target="_blank">网站地图</a>|<a href="/91code/tags.php">TAG标签</a><a href="/91code/data/rssmap.html" class="rss">RSS订阅</a><span>[<a href=""onclick="this.style.behavior='url(#default#homepage)';this.setHomePage('http://localhost');">设为首页</a>] [<a href="javascript:window.external.AddFavorite('http://localhost','91code')">加入收藏</a>]</span></div>
+    </div> 
+</div>
+<div class="header">
+	<div class="top w960 center">
+      <div class="title">
+        <h1><a href="http://localhost"><img src="/91code/templets/default/images/logo.gif" height="54" width="216" alt="91code"/></a> </h1>
+      </div>
+         <div class="search">
+      <form  name="formsearch" action="/91code/plus/search.php">
+        <div class="form">
+           <input type="hidden" name="kwtype" value="0" />
+           <input name="q" type="text" class="search-keyword" id="search-keyword" value="在这里搜索..." onfocus="if(this.value=='在这里搜索...'){this.value='';}"  onblur="if(this.value==''){this.value='在这里搜索...';}" />
+           <input type="hidden" name="searchtype" value="title" />
+          <button type="submit" class="search-submit">搜索</button>
+        </div>
+        </form>
+        <div class="tags">
+          <h4>热门标签:</h4>
+          <ul>
+          
+            <li><a href='/91code/tags.php?/python/'>python</a></li>
+          
+            <li><a href='/91code/tags.php?/js+call/'>js call</a></li>
+          
+            <li><a href='/91code/tags.php?/sphinx.conf/'>sphinx.conf</a></li>
+          
+            <li><a href='/91code/tags.php?/dedecms/'>dedecms</a></li>
+          
+            <li><a href='/91code/tags.php?/js/'>js</a></li>
+          
+          </ul>
+        </div>
+    </div><!-- //search -->
+	</div><!-- //top -->
+	<!-- //菜单 -->
+	<div class="module blue mT10 wrapper w963">
+  	<div class="top">
+    	<!-- //如果不使用currentstyle，可以在channel标签加入 cacheid='channeltoplist' 属性提升性能 -->
+    <div id="navMenu">
+    	<ul>
+      	<li><a href='/91code/'><span>主页</span></a></li>
+      	
+      	<li><a href='/91code/a/webbase/'  rel='dropmenu1'><span>网页前端</span></a></li>
+      	
+      	<li><a href='/91code/a/design/' ><span>网页设计</span></a></li>
+      	
+      	<li><a href='/91code/a/downloads/'  rel='dropmenu7'><span>资源下载</span></a></li>
+      	
+      	<li><a href='/91code/linux/' ><span>linux</span></a></li>
+      	
+      	<li><a href='/91code/database/' ><span>数据库</span></a></li>
+      	<li class='hover'><a href='/91code/python/'  rel='dropmenu21'><span>python</span></a></li>
+      	<li><a href='/91code/a/SEO/' ><span>SEO</span></a></li>
+      	
+      	<li><a href='/91code/video/' ><span>视频教程</span></a></li>
+      	
+      	<li><a href='/91code/php/'  rel='dropmenu12'><span>php</span></a></li>
+      	
+      	<li><a href='/91code/a/search/' ><span>搜索引擎</span></a></li>
+      	
+    	</ul>
+    </div>	
+  
+		</div>
+	</div>
+</div><!-- //header -->
+
+<!-- /header -->
+<div id="innerfooterAD2" style="margin:5px auto; width:960px"><script src='/plus/ad_js.php?aid=21' language='javascript'></script></div>
+<div class="w960 center clear mt1">
+<div class="pleft">
+ <div class="place"> <strong>当前位置:</strong> <a href='http://localhost/91code'>主页</a> > <a href='/91code/python/'>python</a> > <a href='/91code/python/django/'>Django</a> >  </div>
+ <!-- /place -->
+ <div class="viewbox">
+  <div class="title">
+   <h2>第十一章：django通用视图</h2>
+  </div>
+  <!-- /title -->
+  <div class="info"> <small>时间:</small>2013-04-14 18:21<small>来源:</small>91code <small>作者:</small>没事转转 <small>点击:</small>
+   <script src="/91code/plus/count.php?view=yes&aid=2065&mid=1" type='text/javascript' language="javascript"></script>
+   次</div>
+  <!-- /info -->
+  
+  <div class="intro">这里需要再次回到本书的主题： 在最坏的情况下， Web 开发是一项无聊而且单调的工作。 到目前为止，我们已经介绍了 Django 怎样在模型和模板的层面上减小开发的单调性</div>
+  
+  <div class="content">
+     <div id="contentMidPicAD" style="float:right; clear:both; top:0; vertical-align:top;"></div>
+      	<p class="cn" id="cn1">
+		这里需要再次回到本书的主题： 在最坏的情况下， Web 开发是一项无聊而且单调的工作。 到目前为止，我们已经介绍了 Django 怎样在模型和模板的层面上减小开发的单调性，但是 Web 开发在视图的层面上，也经历着这种令人厌倦的事情。</p>
+	<p class="cn" id="cn2">
+		Django的<em>通用视图</em> 可以减少这些痛苦。 它抽象出一些在视图开发中常用的代码和模式，这样就可以在无需编写大量代码的情况下，快速编写出常用的数据视图。 事实上，前面章节中的几乎所有视图的示例都可以在通用视图的帮助下重写。</p>
+	<p class="cn" id="cn3">
+		在第八章简单的向大家介绍了怎样使视图更加的&ldquo;通用&rdquo;。 回顾一下，我们会发现一些比较常见的任务，比如显示一系列对象，写一段代码来显示 <em>任何</em> 对象内容。 解决办法就是传递一个额外的参数到URLConf。</p>
+	<p class="cn" id="cn4">
+		Django内建通用视图可以实现如下功能：</p>
+	<ul class="simple">
+		<li class="cn" id="cn5">
+			<p class="first cn" id="cn5">
+				完成常用的简单任务： 重定向到另一个页面以及渲染一个指定的模板。</p>
+		</li>
+	</ul>
+	<ul class="simple">
+		<li class="cn" id="cn6">
+			<p class="first cn" id="cn6">
+				显示列表和某个特定对象的详细内容页面。 第8章中提到的 <tt class="docutils literal"><span class="pre">event_list</span></tt> 和 <tt class="docutils literal"><span class="pre">entry_list</span></tt> 视图就是列表视图的一个例子。 一个单一的 event 页面就是我们所说的详细内容页面。</p>
+		</li>
+	</ul>
+	<ul class="simple">
+		<li class="cn" id="cn7">
+			<p class="first cn" id="cn7">
+				呈现基于日期的数据的年/月/日归档页面，关联的详情页面，最新页面。 Django Weblogs (<a class="reference external" href="http://www.djangoproject.com/weblog/">http://www.djangoproject.com/weblog/</a>)的年、月、日的归档就是使用通用视图 架构的，就像是典型的新闻报纸归档。</p>
+		</li>
+	</ul>
+	<p class="cn" id="cn8">
+		综上所述，这些视图为开发者日常开发中常见的任务提供了易用的接口。</p>
+	<div class="section" id="id2">
+		<h2 class="cn" id="cn9">
+			使用通用视图</h2>
+		<p class="cn" id="cn10">
+			使用通用视图的方法是在URLconf文件中创建配置字典，然后把这些字典作为URLconf元组的第三个成员。 （对于这个技巧的应用可以参看第八章向视图传递额外选项。）</p>
+		<p class="cn" id="cn11">
+			例如，下面是一个呈现静态&ldquo;关于&rdquo;页面的URLconf：</p>
+		<pre class="cn literal-block" id="cn13">
+from django.conf.urls.defaults import *
+from django.views.generic.simple import direct_to_template
+
+urlpatterns = patterns(&#39;&#39;,
+    (r&#39;^about/$&#39;, direct_to_template, {
+        &#39;template&#39;: &#39;about.html&#39;
+    })
+)
+</pre>
+		<p class="cn" id="cn14">
+			一眼看上去似乎有点不可思议，不需要编写代码的视图！它和第八章中的例子完全一样：<tt class="docutils literal"><span class="pre">direct_to_template</span></tt>视图仅仅是直接从传递过来的额外参数获取信息并用于渲染视图。</p>
+		<p class="cn" id="cn15">
+			因为通用视图都是标准的视图函数，我们可以在我们自己的视图中重用它。 例如，我们扩展 about例子，把映射的URL从 <tt class="docutils literal"><span class="pre">/about//</span></tt>修改到一个静态渲染 <tt class="docutils literal"><span class="pre">about/.html</span></tt> 。 我们首先修改URL配置以指向新的视图函数：</p>
+		<pre class="cn literal-block" id="cn17">
+from django.conf.urls.defaults import *
+from django.views.generic.simple import direct_to_template
+**from mysite.books.views import about_pages**
+
+urlpatterns = patterns(&#39;&#39;,
+    (r&#39;^about/$&#39;, direct_to_template, {
+        &#39;template&#39;: &#39;about.html&#39;
+    }),
+    **(r&#39;^about/(\w+)/$&#39;, about_pages),**
+)
+</pre>
+		<p class="cn" id="cn18">
+			接下来，我们编写 <tt class="docutils literal"><span class="pre">about_pages</span></tt> 视图的代码：</p>
+		<pre class="cn literal-block" id="cn20">
+from django.http import Http404
+from django.template import TemplateDoesNotExist
+from django.views.generic.simple import direct_to_template
+
+def about_pages(request, page):
+    try:
+        return direct_to_template(request, template=&quot;about/%s.html&quot; % page)
+    except TemplateDoesNotExist:
+        raise Http404()
+</pre>
+		<p class="cn" id="cn21">
+			在这里我们象使用其他函数一样使用 <tt class="docutils literal"><span class="pre">direct_to_template</span></tt> 。 因为它返回一个<tt class="docutils literal"><span class="pre">HttpResponse</span></tt>对象，我们只需要简单的返回它就好了。 这里唯一有点棘手的事情是要处理找不到模板的情况。 我们不希望一个不存在的模板导致一个服务端错误，所以我们捕获TemplateDoesNotExist异常并且返回404错误来作为替代。</p>
+		<p class="cn" id="cn22">
+			这里有没有安全性问题？</p>
+		<p class="cn" id="cn23">
+			眼尖的读者可能已经注意到一个可能的安全漏洞： 我们直接使用从客户端浏览器得到的数据构造模板名称(<tt class="docutils literal"><span class="pre">template=&quot;about/%s.html&quot;</span> <span class="pre">%</span> <span class="pre">page</span></tt> )。乍看起来，这像是一个经典的 <em>目录跨越（directory traversal）</em> 攻击（详情请看第20章）。 事实真是这样吗？</p>
+		<p class="cn" id="cn24">
+			完全不是。 是的，一个恶意的 <tt class="docutils literal"><span class="pre">page</span></tt> 值可以导致目录跨越，但是尽管 <tt class="docutils literal"><span class="pre">page</span></tt> <em>是</em> 从请求的URL中获取的，但并不是所有的值都会被接受。 这就是URL配置的关键所在： 我们使用正则表达式 <tt class="docutils literal"><span class="pre">\w+</span></tt> 来从URL里匹配 <tt class="docutils literal"><span class="pre">page</span></tt> ，而 <tt class="docutils literal"><span class="pre">\w</span></tt> 只接受字符和数字。 因此，任何恶意的字符 （例如在这里是点 <tt class="docutils literal"><span class="pre">.</span></tt> 和正斜线 <tt class="docutils literal"><span class="pre">/</span></tt> ）将在URL解析时被拒绝，根本不会传递给视图函数。</p>
+	</div>
+	<div class="section" id="id3">
+		<h2 class="cn" id="cn25">
+			对象的通用视图</h2>
+		<p class="cn" id="cn26">
+			<tt class="docutils literal"><span class="pre">direct_to_template</span></tt> 毫无疑问是非常有用的，但Django通用视图最有用的地方是呈现数据库中的数据。因为这个应用实在太普遍了，Django带有很多内建的通用视图来帮助你很容易 地生成对象的列表和明细视图。</p>
+		<p class="cn" id="cn27">
+			让我们先看看其中的一个通用视图： 对象列表视图。 我们使用第五章中的 <tt class="docutils literal"><span class="pre">Publisher</span></tt> 来举例：</p>
+		<pre class="cn literal-block" id="cn29">
+class Publisher(models.Model):
+    name = models.CharField(max_length=30)
+    address = models.CharField(max_length=50)
+    city = models.CharField(max_length=60)
+    state_province = models.CharField(max_length=30)
+    country = models.CharField(max_length=50)
+    website = models.URLField()
+
+    def __unicode__(self):
+        return self.name
+
+    class Meta:
+        ordering = [&#39;name&#39;]
+</pre>
+		<p class="cn" id="cn30">
+			要为所有的出版商创建一个列表页面，我们使用下面的URL配置：</p>
+		<pre class="cn literal-block" id="cn32">
+from django.conf.urls.defaults import *
+from django.views.generic import list_detail
+from mysite.books.models import Publisher
+
+publisher_info = {
+    &#39;queryset&#39;: Publisher.objects.all(),
+}
+
+urlpatterns = patterns(&#39;&#39;,
+    (r&#39;^publishers/$&#39;, list_detail.object_list, publisher_info)
+)
+</pre>
+		<p class="cn" id="cn33">
+			这就是所要编写的所有Python代码。 当然，我们还需要编写一个模板。 我们可以通过在额外参数字典中包含一个<tt class="docutils literal"><span class="pre">template_name</span></tt>键来显式地告诉<tt class="docutils literal"><span class="pre">object_list</span></tt>视图使用哪个模板：</p>
+		<pre class="cn literal-block" id="cn35">
+from django.conf.urls.defaults import *
+from django.views.generic import list_detail
+from mysite.books.models import Publisher
+
+publisher_info = {
+    &#39;queryset&#39;: Publisher.objects.all(),
+    **&#39;template_name&#39;: &#39;publisher_list_page.html&#39;,**
+}
+
+urlpatterns = patterns(&#39;&#39;,
+    (r&#39;^publishers/$&#39;, list_detail.object_list, publisher_info)
+)
+</pre>
+		<p class="cn" id="cn36">
+			在缺少<tt class="docutils literal"><span class="pre">template_name</span></tt>的情况下，<tt class="docutils literal"><span class="pre">object_list</span></tt>通用视图将自动使用一个对象名称。 在这个例子中，这个推导出的模板名称将是 <tt class="docutils literal"><span class="pre">&quot;books/publisher_list.html&quot;</span></tt> ，其中books部分是定义这个模型的app的名称， publisher部分是这个模型名称的小写。</p>
+		<p class="cn" id="cn37">
+			这个模板将按照 context 中包含的变量 <tt class="docutils literal"><span class="pre">object_list</span></tt> 来渲染，这个变量包含所有的书籍对象。 一个非常简单的模板看起来象下面这样：</p>
+		<pre class="cn literal-block" id="cn39">
+{% extends &quot;base.html&quot; %}
+
+{% block content %}
+    &lt;h2&gt;Publishers&lt;/h2&gt;
+    &lt;ul&gt;
+        {% for publisher in object_list %}
+            &lt;li&gt;{{ publisher.name }}&lt;/li&gt;
+        {% endfor %}
+    &lt;/ul&gt;
+{% endblock %}
+</pre>
+		<p class="cn" id="cn40">
+			(注意，这里我们假定存在一个<tt class="docutils literal"><span class="pre">base.html</span></tt>模板，它和我们第四章中的一样。）</p>
+		<p class="cn" id="cn41">
+			这就是所有要做的事。 要使用通用视图酷酷的特性只需要修改参数字典并传递给通用视图函数。 附录D是通用视图的完全参考资料；本章接下来的章节将讲到自定义和扩展通用视图的一些方法。</p>
+	</div>
+	<div class="section" id="id4">
+		<h2 class="cn" id="cn42">
+			扩展通用视图</h2>
+		<p class="cn" id="cn43">
+			毫无疑问，使用通用视图可以充分加快开发速度。 然而，在多数的工程中，也会出现通用视图不能 满足需求的情况。 实际上，刚接触Django的开发者最常见的问题就是怎样使用通用视图来处理更多的情况。</p>
+		<p class="cn" id="cn44">
+			幸运的是，几乎每种情况都有相应的方法来简易地扩展通用视图以处理这些情况。 这时总是使用下面的 这些方法。</p>
+		<div class="section" id="context">
+			<h3 class="cn" id="cn45">
+				制作友好的模板Context</h3>
+			<p class="cn" id="cn46">
+				你也许已经注意到范例中的出版商列表模板在变量 <tt class="docutils literal"><span class="pre">object_list</span></tt> 里保存所有的书籍。这个方法工作的很好，只是对编写模板的人不太友好。 他们必须知道这里正在处理的是书籍。 更好的变量名应该是<tt class="docutils literal"><span class="pre">publisher_list</span></tt>，这样变量所代表的内容就显而易见了。</p>
+			<p class="cn" id="cn47">
+				我们可以很容易地像下面这样修改 <tt class="docutils literal"><span class="pre">template_object_name</span></tt> 参数的名称：</p>
+			<pre class="cn literal-block" id="cn49">
+from django.conf.urls.defaults import *
+from django.views.generic import list_detail
+from mysite.books.models import Publisher
+
+publisher_info = {
+    &#39;queryset&#39;: Publisher.objects.all(),
+    &#39;template_name&#39;: &#39;publisher_list_page.html&#39;,
+    &#39;template_object_name&#39;: &#39;publisher&#39;,
+}
+
+urlpatterns = patterns(&#39;&#39;,
+    (r&#39;^publishers/$&#39;, list_detail.object_list, publisher_info)
+)
+</pre>
+			<p class="cn" id="cn50">
+				在模板中，通用视图会通过在<tt class="docutils literal"><span class="pre">template_object_name</span></tt>后追加一个<tt class="docutils literal"><span class="pre">_list</span></tt>的方式来创建一个表示列表项目的变量名。</p>
+			<p class="cn" id="cn51">
+				使用有用的 <tt class="docutils literal"><span class="pre">template_object_name</span></tt> 总是个好想法。 你的设计模板的合作伙伴会感谢你的。</p>
+		</div>
+		<div class="section" id="id5">
+			<h3 class="cn" id="cn52">
+				添加额外的Context</h3>
+			<p class="cn" id="cn53">
+				你常常需要呈现比通用视图提供的更多的额外信息。 例如，考虑一下在每个出版商的详细页面显示所有其他出版商列表。 <tt class="docutils literal"><span class="pre">object_detail</span></tt> 通用视图为context提供了出版商信息，但是看起来没有办法在模板中 获取 <em>所有</em> 出版商列表。</p>
+			<p class="cn" id="cn54">
+				这是解决方法： 所有的通用视图都有一个额外的可选参数 <tt class="docutils literal"><span class="pre">extra_context</span></tt> 。这个参数是一个字典数据类型，包含要添加到模板的context中的额外的对象。 所以要给视图提供所有出版商的列表，我们就用这样的info字典：</p>
+			<pre class="cn literal-block" id="cn56">
+publisher_info = {
+    &#39;queryset&#39;: Publisher.objects.all(),
+    &#39;template_object_name&#39;: &#39;publisher&#39;,
+    **&#39;extra_context&#39;: {&#39;book_list&#39;: Book.objects.all()}**
+}
+</pre>
+			<p class="cn" id="cn57">
+				这样就把一个 <tt class="docutils literal"><span class="pre">{{</span> <span class="pre">book_list</span> <span class="pre">}}</span></tt> 变量放到模板的context中。这个方法可以用来传递任意数据 到通用视图模板中去，非常方便。 这是非常方便的</p>
+			<p class="cn" id="cn58">
+				不过，这里有一个很隐蔽的BUG，不知道你发现了没有？</p>
+			<p class="cn" id="cn59">
+				我们现在来看一下， <tt class="docutils literal"><span class="pre">extra_context</span></tt> 里包含数据库查询的问题。因为在这个例子中，我们把 <tt class="docutils literal"><span class="pre">Publisher.objects.all()</span></tt> 放在URLconf中，它只会执行一次（当URLconf第一次加载的时候）。 当你添加或删除出版商，你会发现在重启Web服务器之前，通用视图不会反映出这些修改（有关QuerySet何时被缓存和赋值的更多信息请参考附录C中&ldquo;缓存与查询集&rdquo;一节）。</p>
+			<p class="cn" id="cn60">
+				备注</p>
+			<p class="cn" id="cn61">
+				这个问题不适用于通用视图的 <tt class="docutils literal"><span class="pre">queryset</span></tt> 参数。 因为Django知道有些特别的 QuerySet <em>永远不能</em> 被缓存，通用视图在渲染前都做了缓存清除工作。</p>
+			<p class="cn" id="cn62">
+				解决这个问题的办法是在 <em>extra_context</em> 中用一个回调（callback）来代替使用一个变量。任何传递给<tt class="docutils literal"><span class="pre">extra_context</span></tt>的可调用对象（例如一个函数）都会在每次视图渲染前执行（而不是只执行一次）。 你可以象这样定义一个函数：</p>
+			<pre class="cn literal-block" id="cn64">
+**def get_books():**
+    **return Book.objects.all()**
+
+publisher_info = {
+    &#39;queryset&#39;: Publisher.objects.all(),
+    &#39;template_object_name&#39;: &#39;publisher&#39;,
+    &#39;extra_context&#39;: **{&#39;book_list&#39;: get_books}**
+}
+</pre>
+			<p class="cn" id="cn65">
+				或者你可以使用另一个不是那么清晰但是很简短的方法，事实上 <tt class="docutils literal"><span class="pre">Publisher.objects.all</span></tt> 本身就是可以调用的：</p>
+			<pre class="cn literal-block" id="cn67">
+publisher_info = {
+    &#39;queryset&#39;: Publisher.objects.all(),
+    &#39;template_object_name&#39;: &#39;publisher&#39;,
+    &#39;extra_context&#39;: **{&#39;book_list&#39;: Book.objects.all}**
+}
+</pre>
+			<p class="cn" id="cn68">
+				注意 <tt class="docutils literal"><span class="pre">Book.objects.all</span></tt> 后面没有括号；这表示这是一个函数的引用，并没有真正调用它（通用视图将会在渲染时调用它）。</p>
+		</div>
+		<div class="section" id="id6">
+			<h3 class="cn" id="cn69">
+				显示对象的子集</h3>
+			<p class="cn" id="cn70">
+				现在让我们来仔细看看这个 <tt class="docutils literal"><span class="pre">queryset</span></tt> 。 大多数通用视图有一个<tt class="docutils literal"><span class="pre">queryset</span></tt>参数，这个参数告诉视图要显示对象的集合 （有关QuerySet的解释请看第五章的 &ldquo;选择对象&rdquo;章节，详细资料请参看附录B）。</p>
+			<p class="cn" id="cn71">
+				举一个简单的例子，我们打算对书籍列表按出版日期排序，最近的排在最前：</p>
+			<pre class="cn literal-block" id="cn73">
+book_info = {
+    &#39;queryset&#39;: Book.objects.order_by(&#39;-publication_date&#39;),
+}
+
+urlpatterns = patterns(&#39;&#39;,
+    (r&#39;^publishers/$&#39;, list_detail.object_list, publisher_info),
+    **(r&#39;^books/$&#39;, list_detail.object_list, book_info),**
+)
+</pre>
+			<p class="cn" id="cn74">
+				这是一个相当简单的例子，但是很说明问题。 当然，你通常还想做比重新排序更多的事。 如果你想要呈现某个特定出版商出版的所有书籍列表，你可以使用同样的技术：</p>
+			<pre class="cn literal-block" id="cn76">
+**apress_books = {**
+    **&#39;queryset&#39;: Book.objects.filter(publisher__name=&#39;Apress Publishing&#39;),**
+    **&#39;template_name&#39;: &#39;books/apress_list.html&#39;**
+**}**
+
+urlpatterns = patterns(&#39;&#39;,
+    (r&#39;^publishers/$&#39;, list_detail.object_list, publisher_info),
+    **(r&#39;^books/apress/$&#39;, list_detail.object_list, apress_books),**
+)
+</pre>
+			<p class="cn" id="cn77">
+				注意 在使用一个过滤的 <tt class="docutils literal"><span class="pre">queryset</span></tt> 的同时，我们还使用了一个自定义的模板名称。 如果我们不这么做，通用视图就会用以前的模板，这可能不是我们想要的结果。</p>
+			<p class="cn" id="cn78">
+				同样要注意的是这并不是一个处理出版商相关书籍的最好方法。 如果我们想要添加另一个 出版商页面，我们就得在URL配置中写URL配置，如果有很多的出版商，这个方法就不能 接受了。在接下来的章节我们将来解决这个问题。</p>
+		</div>
+		<div class="section" id="id7">
+			<h3 class="cn" id="cn79">
+				用函数包装来处理复杂的数据过滤</h3>
+			<p class="cn" id="cn80">
+				另一个常见的需求是按URL里的关键字来过滤数据对象。 之前，我们在URLconf中硬编码了出版商的名字，但是如果我们想用一个视图就显示某个任意指定的出版商的所有书籍，那该怎么办呢？ 我们可以通过对 <tt class="docutils literal"><span class="pre">object_list</span></tt> 通用视图进行包装来避免 写一大堆的手工代码。 按惯例，我们先从写URL配置开始：</p>
+			<pre class="cn literal-block" id="cn82">
+urlpatterns = patterns(&#39;&#39;,
+    (r&#39;^publishers/$&#39;, list_detail.object_list, publisher_info),
+    **(r&#39;^books/(\w+)/$&#39;, books_by_publisher),**
+)
+</pre>
+			<p class="cn" id="cn83">
+				接下来，我们写 <tt class="docutils literal"><span class="pre">books_by_publisher</span></tt> 这个视图：</p>
+			<pre class="cn literal-block" id="cn85">
+from django.shortcuts import get_object_or_404
+from django.views.generic import list_detail
+from mysite.books.models import Book, Publisher
+
+def books_by_publisher(request, name):
+
+    # Look up the publisher (and raise a 404 if it can&#39;t be found).
+    publisher = get_object_or_404(Publisher, name__iexact=name)
+
+    # Use the object_list view for the heavy lifting.
+    return list_detail.object_list(
+        request,
+        queryset = Book.objects.filter(publisher=publisher),
+        template_name = &#39;books/books_by_publisher.html&#39;,
+        template_object_name = &#39;book&#39;,
+        extra_context = {&#39;publisher&#39;: publisher}
+    )
+</pre>
+			<p class="cn" id="cn86">
+				这样写没问题，因为通用视图就是Python函数。 和其他的视图函数一样，通用视图也是接受一些 参数并返回 <tt class="docutils literal"><span class="pre">HttpResponse</span></tt> 对象。 因此，通过包装通用视图函数可以做更多的事。</p>
+			<p class="cn" id="cn87">
+				注意</p>
+			<p class="cn" id="cn88">
+				注意在前面这个例子中我们在 <tt class="docutils literal"><span class="pre">extra_context</span></tt>中传递了当前出版商这个参数。</p>
+		</div>
+		<div class="section" id="id8">
+			<h3 class="cn" id="cn89">
+				处理额外工作</h3>
+			<p class="cn" id="cn90">
+				我们再来看看最后一个常用模式：</p>
+			<p class="cn" id="cn91">
+				想象一下我们在 <tt class="docutils literal"><span class="pre">Author</span></tt> 对象里有一个 <tt class="docutils literal"><span class="pre">last_accessed</span></tt> 字段，我们用这个字段来记录最近一次对author的访问。 当然通用视图 <tt class="docutils literal"><span class="pre">object_detail</span></tt> 并不能处理这个问题，但是我们仍然可以很容易地编写一个自定义的视图来更新这个字段。</p>
+			<p class="cn" id="cn92">
+				首先，我们需要在URL配置里设置指向到新的自定义视图：</p>
+			<pre class="cn literal-block" id="cn94">
+from mysite.books.views import author_detail
+
+urlpatterns = patterns(&#39;&#39;,
+    # ...
+    **(r&#39;^authors/(?P&lt;author_id&gt;\d+)/$&#39;, author_detail),**
+    # ...
+)
+</pre>
+			<p class="cn" id="cn95">
+				接下来写包装函数：</p>
+			<pre class="cn literal-block" id="cn97">
+import datetime
+from django.shortcuts import get_object_or_404
+from django.views.generic import list_detail
+from mysite.books.models import Author
+
+def author_detail(request, author_id):
+    # Delegate to the generic view and get an HttpResponse.
+    response = list_detail.object_detail(
+        request,
+        queryset = Author.objects.all(),
+        object_id = author_id,
+    )
+
+    # Record the last accessed date. We do this *after* the call
+    # to object_detail(), not before it, so that this won&#39;t be called
+    # unless the Author actually exists. (If the author doesn&#39;t exist,
+    # object_detail() will raise Http404, and we won&#39;t reach this point.)
+    now = datetime.datetime.now()
+    Author.objects.filter(id=author_id).update(last_accessed=now)
+
+    return response
+</pre>
+			<p class="cn" id="cn98">
+				注意</p>
+			<p class="cn" id="cn99">
+				除非你添加 <tt class="docutils literal"><span class="pre">last_accessed</span></tt> 字段到你的 <tt class="docutils literal"><span class="pre">Author</span></tt> 模型并创建 <tt class="docutils literal"><span class="pre">books/author_detail.html</span></tt> 模板，否则这段代码不能真正工作。</p>
+			<p class="cn" id="cn100">
+				我们可以用同样的方法修改通用视图的返回值。如果我们想要提供一个供下载用的 纯文本版本的author列表，我们可以用下面这个视图：</p>
+			<pre class="cn literal-block" id="cn102">
+def author_list_plaintext(request):
+    response = list_detail.object_list(
+        request,
+        queryset = Author.objects.all(),
+        mimetype = &#39;text/plain&#39;,
+        template_name = &#39;books/author_list.txt&#39;
+    )
+    response[&quot;Content-Disposition&quot;] = &quot;attachment; filename=authors.txt&quot;
+    return response
+</pre>
+			<p class="cn" id="cn103">
+				这个方法之所以工作是因为通用视图返回的 <tt class="docutils literal"><span class="pre">HttpResponse</span></tt> 对象可以象一个字典 一样的设置HTTP的头部。 随便说一下，这个 <tt class="docutils literal"><span class="pre">Content-Disposition</span></tt> 的含义是 告诉浏览器下载并保存这个页面，而不是在浏览器中显示它。</p>
+		</div>
+	</div>
+	<div class="section" id="id9">
+		<h2 class="cn" id="cn104">
+			下一章</h2>
+		<p class="cn" id="cn105">
+			在这一章我们只讲了Django带的通用视图其中一部分，不过这些方法也适用于其他的 通用视图。 附录C详细地介绍了所有可用的视图，如果你想了解这些强大的特性，推荐你阅读一下。</p>
+		<p class="cn" id="cn106">
+			这本书的高级语法部分到此结束。 在<a class="reference external" href="../chapter12/">下一章</a>, 我们讲解了Django应用的部署。</p>
+	</div>
+
+      
+      (责任编辑：admin)
+  </div>
+  <!-- /content -->
+  <div class="dede_pages">
+   <ul class="pagelist">
+    
+   </ul>
+  </div>
+  <!-- /pages -->
+ 
+  <!-- //分享代码开始 -->
+ 	<!-- Baidu Button BEGIN -->
+<div id="bdshare" class="bdshare_t bds_tools_32 get-codes-bdshare">
+<a class="bds_tsina"></a>
+<a class="bds_qzone"></a>
+<a class="bds_tqq"></a>
+<a class="bds_renren"></a>
+<a class="bds_sqq"></a>
+<a class="bds_t163"></a>
+<span class="bds_more"></span>
+<a class="shareCount"></a>
+</div>
+<script type="text/javascript" id="bdshare_js" data="type=tools&amp;uid=6825383" ></script>
+<script type="text/javascript" id="bdshell_js"></script>
+<script type="text/javascript">
+document.getElementById("bdshell_js").src = "http://bdimg.share.baidu.com/static/js/shell_v2.js?cdnversion=" + Math.ceil(new Date()/3600000)
+</script>
+<!-- Baidu Button END -->
+  <!-- //分享代码结束 -->
+  <div class="boxoff"> <strong>------分隔线----------------------------</strong> </div>
+  <div class="handle">
+   <div class="context">
+    <ul>
+     <li>上一篇：<a href='/91code/python/django/2013/0414/django_10.html'>第十章 django模型高级进阶</a> </li>
+     <li>下一篇：<a href='/91code/python/django/2013/0414/django_12.html'>第二十章 部署Django</a> </li>
+    </ul>
+   </div>
+   <!-- /context -->
+   <div class="actbox">
+    <ul>
+     <li id="act-pnt"><a href="#" onClick="window.print();">打印</a></li>
+    </ul>
+   </div>
+   <!-- /actbox -->
+  </div>
+  <!-- /handle -->
+ </div>
+ <!-- /viewbox -->
+ <!-- //AJAX评论区 -->
+ </div>
+<!-- //左边内容结束 -->
+<!-- //右边内容开始 -->
+<div class="pright">
+ <div class="pright">
+  <div style="margin-bottom:10px;"><script src='/plus/ad_js.php?aid=14' language='javascript'></script></div>
+  <div>
+   <dl class="tbox">
+    <dt><strong>栏目列表</strong></dt>
+    <dd>
+     <ul class="d6">
+      <li><a href='/91code/python/django/' class='thisclass'>Django</a></li>
+     </ul>
+    </dd>
+   </dl>
+  </div>
+  <div id="contentRtPicAD" style="margin:10px auto"></div>
+  <div class="commend mt1">
+   <dl class="tbox light">
+    <dt class='light'><strong>推荐内容</strong></dt>
+    <dd class='light'>
+     <ul class="d4">
+      <li><a href="/91code/python/django/2013/0414/django_15.html">第十五章 django 缓存机制</a>
+       <p>动态网站的问题就在于它是动态的。 也就是说每次用户访问一个...</p>
+      </li>
+<li><a href="/91code/python/django/2013/0414/django_14.html">第十四章 django 会话、用户和注册</a>
+       <p>是时候承认了： 我们有意的避开了Web开发中极其重要的方面。...</p>
+      </li>
+<li><a href="/91code/python/django/2013/0414/django_13.html">第十三章 django输出非HTML内容</a>
+       <p>通常当我们谈到开发网站时，主要谈论的是HTML。当然，Web远不只...</p>
+      </li>
+<li><a href="/91code/python/django/2013/0414/django_12.html">第二十章 部署Django</a>
+       <p>本章包含创建一个django程序最必不可少的步骤 在服务器上部署它...</p>
+      </li>
+<li><a href="/91code/python/django/2013/0414/django_11.html">第十一章：django通用视图</a>
+       <p>这里需要再次回到本书的主题： 在最坏的情况下， Web 开发是一...</p>
+      </li>
+<li><a href="/91code/python/django/2013/0414/django_9.html">第九章：django模版高级进阶</a>
+       <p>虽然大多数和Django模板语言的交互都是模板作者的工作，但你可...</p>
+      </li>
+
+     </ul>
+    </dd>
+   </dl>
+  </div>
+  <!-- /commend -->
+  <div class="hot mt1">
+   <dl class="tbox light">
+    <dt class='light'><strong>热点内容</strong></dt>
+    <dd class='light'>
+     <ul class="c1 ico2">
+      <li><a href="/91code/python/django/2013/0414/django_12.html">第二十章 部署Django</a></li>
+<li><a href="/91code/python/django/2013/0414/django_6.html">第六章：django Admin</a></li>
+<li><a href="/91code/python/django/2013/0414/django_14.html">第十四章 django 会话、用户</a></li>
+<li><a href="/91code/python/django/2013/0414/django_10.html">第十章 django模型高级进阶</a></li>
+<li><a href="/91code/python/django/2013/0414/python_7.html">第七章：django表单</a></li>
+<li><a href="/91code/python/django/2013/0414/2057.html">第三章 django的视图和URL配</a></li>
+<li><a href="/91code/python/django/2012/0913/109.html">第一章：介绍Django</a></li>
+<li><a href="/91code/python/django/2012/0914/110.html">第二章:Django入门篇</a></li>
+<li><a href="/91code/python/django/2013/0414/django_13.html">第十三章 django输出非HTM</a></li>
+<li><a href="/91code/python/django/2013/0414/django_5.html">第五章 django模型</a></li>
+
+     </ul>
+    </dd>
+   </dl>
+  </div>
+  <div id="contentRtPicAD2" style="margin:10px auto"><a href="http://www.aipython.com" target="_blank"><img src="/uploads/litimg/python_ad.gif" width="240" height="108" border="0" /></a></div>
+ </div>
+ <!-- /pright -->
+</div>
+<div id="innerfooterAD2" style="margin:10px auto; width:726px"></div>
+
+<!-- //底部模板 -->
+<div class="footer w960 center mt1 clear">
+    <div class="footer_left"></div>
+    <div class="footer_body">
+	<p class="powered">    
+		<div class="copyright">Copyright &copy; 2007-2012 91code 版权所有&nbsp;&nbsp;|
+		<script type="text/javascript">var _bdhmProtocol = (("https:" == document.location.protocol) ? " https://" : " http://");
+document.write(unescape("%3Cscript src='" + _bdhmProtocol + "hm.baidu.com/h.js%3Fc4c388f026afcf67556a9b54a4f7be44' type='text/javascript'%3E%3C/script%3E"));</script>
+</div></p>        
+   </div>
+   <div class="footer_right"></div>
+</div>
+<!-- Baidu Button BEGIN -->
+<script type="text/javascript" id="bdshare_js" data="type=slide&amp;img=6&amp;pos=right&amp;uid=6675772" ></script>
+<script type="text/javascript" id="bdshell_js"></script>
+<script type="text/javascript">
+document.getElementById("bdshell_js").src = "http://bdimg.share.baidu.com/static/js/shell_v2.js?cdnversion=" + Math.ceil(new Date()/3600000);
+</script>
+<!-- Baidu Button END -->
+<!-- /footer -->
+</body>
+</html>

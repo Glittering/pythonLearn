@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>
+            {% block title %}
+                base
+            {% endblock %}
+        </title>
+    </head>
+    <body>
+        <div class = "top">
+
+        </div>
+        <div class= "middle">
+            <div class = "middle_left">
+
+            </div>
+            <div class = "middel_right">
+                {% block middle_right %}
+                    <p>
+                        welcome to my world
+                    </p>
+                {% endblock %}
+            </div>
+        </div>
+        <div class = "bottom">
+
+        </div>
+    </body>
+</html>

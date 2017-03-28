@@ -1,0 +1,897 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<title>第十五章 django 缓存机制_Django_91code</title>
+<meta name="keywords" content="python,django,django缓存机制" />
+<meta name="description" content="动态网站的问题就在于它是动态的。 也就是说每次用户访问一个页面，服务器要执行数据库查询，启动模板，执行业务逻辑以及最终生成一个你所看到的网页，这一切都是动态即时生成" />
+<link href="../../templets/default/style/dedecms.css" rel="stylesheet" media="screen" type="text/css" />
+<script language="javascript" type="text/javascript" src="/91code/include/dedeajax2.js"></script>
+</head>
+<body class="articleview">
+<div class="header_top">  
+    <div class="w960 center">  
+     <span id="time" class="time">欢迎来到 91code 代码站</span>
+     <div class="toplinks"><a href="/91code/plus/heightsearch.php" target="_blank">高级搜索</a>|<a href="/91code/data/sitemap.html" target="_blank">网站地图</a>|<a href="/91code/tags.php">TAG标签</a><a href="/91code/data/rssmap.html" class="rss">RSS订阅</a><span>[<a href=""onclick="this.style.behavior='url(#default#homepage)';this.setHomePage('http://localhost');">设为首页</a>] [<a href="javascript:window.external.AddFavorite('http://localhost','91code')">加入收藏</a>]</span></div>
+    </div> 
+</div>
+<div class="header">
+	<div class="top w960 center">
+      <div class="title">
+        <h1><a href="http://localhost"><img src="/91code/templets/default/images/logo.gif" height="54" width="216" alt="91code"/></a> </h1>
+      </div>
+         <div class="search">
+      <form  name="formsearch" action="/91code/plus/search.php">
+        <div class="form">
+           <input type="hidden" name="kwtype" value="0" />
+           <input name="q" type="text" class="search-keyword" id="search-keyword" value="在这里搜索..." onfocus="if(this.value=='在这里搜索...'){this.value='';}"  onblur="if(this.value==''){this.value='在这里搜索...';}" />
+           <input type="hidden" name="searchtype" value="title" />
+          <button type="submit" class="search-submit">搜索</button>
+        </div>
+        </form>
+        <div class="tags">
+          <h4>热门标签:</h4>
+          <ul>
+          
+            <li><a href='/91code/tags.php?/python/'>python</a></li>
+          
+            <li><a href='/91code/tags.php?/js+call/'>js call</a></li>
+          
+            <li><a href='/91code/tags.php?/sphinx.conf/'>sphinx.conf</a></li>
+          
+            <li><a href='/91code/tags.php?/dedecms/'>dedecms</a></li>
+          
+            <li><a href='/91code/tags.php?/js/'>js</a></li>
+          
+          </ul>
+        </div>
+    </div><!-- //search -->
+	</div><!-- //top -->
+	<!-- //菜单 -->
+	<div class="module blue mT10 wrapper w963">
+  	<div class="top">
+    	<!-- //如果不使用currentstyle，可以在channel标签加入 cacheid='channeltoplist' 属性提升性能 -->
+    <div id="navMenu">
+    	<ul>
+      	<li><a href='/91code/'><span>主页</span></a></li>
+      	
+      	<li><a href='/91code/a/webbase/'  rel='dropmenu1'><span>网页前端</span></a></li>
+      	
+      	<li><a href='/91code/a/design/' ><span>网页设计</span></a></li>
+      	
+      	<li><a href='/91code/a/downloads/'  rel='dropmenu7'><span>资源下载</span></a></li>
+      	
+      	<li><a href='/91code/linux/' ><span>linux</span></a></li>
+      	
+      	<li><a href='/91code/database/' ><span>数据库</span></a></li>
+      	<li class='hover'><a href='/91code/python/'  rel='dropmenu21'><span>python</span></a></li>
+      	<li><a href='/91code/a/SEO/' ><span>SEO</span></a></li>
+      	
+      	<li><a href='/91code/video/' ><span>视频教程</span></a></li>
+      	
+      	<li><a href='/91code/php/'  rel='dropmenu12'><span>php</span></a></li>
+      	
+      	<li><a href='/91code/a/search/' ><span>搜索引擎</span></a></li>
+      	
+    	</ul>
+    </div>	
+  
+		</div>
+	</div>
+</div><!-- //header -->
+
+<!-- /header -->
+<div id="innerfooterAD2" style="margin:5px auto; width:960px"><script src='/plus/ad_js.php?aid=21' language='javascript'></script></div>
+<div class="w960 center clear mt1">
+<div class="pleft">
+ <div class="place"> <strong>当前位置:</strong> <a href='http://localhost/91code'>主页</a> > <a href='/91code/python/'>python</a> > <a href='/91code/python/django/'>Django</a> >  </div>
+ <!-- /place -->
+ <div class="viewbox">
+  <div class="title">
+   <h2>第十五章 django 缓存机制</h2>
+  </div>
+  <!-- /title -->
+  <div class="info"> <small>时间:</small>2013-04-14 18:31<small>来源:</small>django <small>作者:</small>admin <small>点击:</small>
+   <script src="/91code/plus/count.php?view=yes&aid=2069&mid=1" type='text/javascript' language="javascript"></script>
+   次</div>
+  <!-- /info -->
+  
+  <div class="intro">动态网站的问题就在于它是动态的。 也就是说每次用户访问一个页面，服务器要执行数据库查询，启动模板，执行业务逻辑以及最终生成一个你所看到的网页，这一切都是动态即时生成</div>
+  
+  <div class="content">
+     <div id="contentMidPicAD" style="float:right; clear:both; top:0; vertical-align:top;"></div>
+      	<p class="cn" id="cn1">
+		动态网站的问题就在于它是动态的。 也就是说每次用户访问一个页面，服务器要执行数据库查询，启动模板，执行业务逻辑以及最终生成一个你所看到的网页，这一切都是动态即时生成的。从处理器资源的角度来看，这是比较昂贵的。</p>
+	<p class="cn" id="cn2">
+		对于大多数网络应用来说，过载并不是大问题。 因为大多数网络应用并不是washingtonpost.com或Slashdot；它们通常是很小很简单，或者是中等规模的站点，只有很少的流量。 但是对于中等至大规模流量的站点来说，尽可能地解决过载问题是非常必要的。</p>
+	<p class="cn" id="cn3">
+		这就需要用到缓存了。</p>
+	<p class="cn" id="cn4">
+		缓存的目的是为了避免重复计算，特别是对一些比较耗时间、资源的计算。 下面的伪代码演示了如何对动态页面的结果进行缓存。</p>
+	<pre class="cn literal-block" id="cn6">
+given a URL, try finding that page in the cache
+if the page is in the cache:
+    return the cached page
+else:
+    generate the page
+    save the generated page in the cache (for next time)
+    return the generated page
+</pre>
+	<p class="cn" id="cn7">
+		为此，Django提供了一个稳定的缓存系统让你缓存动态页面的结果，这样在接下来有相同的请求就可以直接使用缓存中的数据，避免不必要的重复计算。 另外Django还提供了不同粒度数据的缓存，例如： 你可以缓存整个页面，也可以缓存某个部分，甚至缓存整个网站。</p>
+	<p class="cn" id="cn8">
+		Django也和&rdquo;上游&rdquo;缓存工作的很好，例如Squid(<a class="reference external" href="http://www.squid-cache.org/">http://www.squid-cache.org</a>)和基于浏览器的缓存。 这些类型的缓存你不直接控制，但是你可以提供关于你的站点哪部分应该被缓存和怎样缓存的线索(通过HTTP头部)给它们</p>
+	<div class="section" id="id2">
+		<h2 class="cn" id="cn9">
+			设定缓存</h2>
+		<p class="cn" id="cn10">
+			缓存系统需要一些少量的设定工作。 也就是说，你必须告诉它缓存的数据应该放在哪里，在数据库中，在文件系统，或直接在内存中。这是一个重要的决定，影响您的高速缓存的性能，是的，有些类型的缓存比其它类型快。</p>
+		<p class="cn" id="cn11">
+			缓存设置在settings文件的 <tt class="docutils literal"><span class="pre">CACHE_BACKEND</span></tt>中。 这里是一个CACHE_BACKEND所有可用值的解释。</p>
+		<div class="section" id="id3">
+			<h3 class="cn" id="cn12">
+				内存缓冲</h3>
+			<p class="cn" id="cn13">
+				Memcached是迄今为止可用于Django的最快，最有效的缓存类型，Memcached是完全基于内存的缓存框架，最初开发它是用以处理高负荷的LiveJournal.com随后由Danga Interactive公司开源。 它被用于一些站点，例如Facebook和维基百科网站，以减少数据库访问，并大幅提高站点的性能。</p>
+			<p class="cn" id="cn14">
+				Memcached是免费的（http://danga.com/memcached）。它作为一个守护进程运行，并分配了特定数量的内存。 它只是提供了添加，检索和删除缓存中的任意数据的高速接口。 所有数据都直接存储在内存中，所以没有对使用的数据库或文件系统的开销。</p>
+			<p class="cn" id="cn15">
+				在安装了Memcached本身之后，你将需要安装Memcached Python绑定，它没有直接和Django绑定。 这两个可用版本。 选择和安装以下模块之一：</p>
+			<ul class="simple">
+				<li class="cn" id="cn16">
+					<p class="first cn" id="cn16">
+						最快的可用选项是一个模块，称为cmemcache，在http://gijsbert.org/cmemcache。</p>
+				</li>
+			</ul>
+			<ul class="simple">
+				<li class="cn" id="cn17">
+					<p class="first cn" id="cn17">
+						如果您无法安装cmemcache，您可以安装python - Memcached，在ftp://ftp.tummy.com/pub/python-memcached/。如果该网址已不再有效，只要到Memcached的网站http://www.danga.com/memcached/），并从客户端API完成Python绑定。</p>
+				</li>
+			</ul>
+			<p class="cn" id="cn18">
+				若要使用Memcached的Django，设置CACHE_BACKEND到memcached：/ / IP：port/，其中IP是Memcached的守护进程的IP地址，port是Memcached运行的端口。</p>
+			<p class="cn" id="cn19">
+				在这个例子中，Memcached运行在本地主机 (127.0.0.1)上,端口为11211：</p>
+			<pre class="cn literal-block" id="cn21">
+CACHE_BACKEND = &#39;memcached://127.0.0.1:11211/&#39;
+</pre>
+			<p class="cn" id="cn22">
+				Memcached的一个极好的特性是它在多个服务器间分享缓存的能力。这意味着您可以在多台机器上运行Memcached的守护进程，该程序会把这些机器当成一个单一缓存，而无需重复每台机器上的缓存值。 要充分利用此功能，请在CACHE_BACKEND里引入所有服务器的地址，用分号分隔。</p>
+			<p class="cn" id="cn23">
+				这个例子中，缓存在运行在IP地址为172.19.26.240和172.19.26.242，端口号为11211的Memcached实例间分享:</p>
+			<pre class="cn literal-block" id="cn25">
+CACHE_BACKEND = &#39;memcached://172.19.26.240:11211;172.19.26.242:11211/&#39;
+</pre>
+			<p class="cn" id="cn26">
+				这个例子中，缓存在运行在172.19.26.240(端口11211)，172.19.26.242(端口11212)，172.19.26.244(端口11213)的Memcached实例间分享:</p>
+			<pre class="cn literal-block" id="cn28">
+CACHE_BACKEND = &#39;memcached://172.19.26.240:11211;172.19.26.242:11212;172.19.26.244:11213/&#39;
+</pre>
+			<p class="cn" id="cn29">
+				最后有关Memcached的一点是，基于内存的缓存有一个重大的缺点。 由于缓存的数据存储在内存中，所以如果您的服务器崩溃，数据将会消失。显然，内存不是用来持久化数据的，因此不要把基于内存的缓存作为您唯一的存储数据缓存。 毫无疑问，在Django的缓存后端不应该用于持久化，它们本来就被设计成缓存的解决方案。但我们仍然指出此点，这里是因为基于内存的缓存是暂时的。</p>
+		</div>
+		<div class="section" id="id4">
+			<h3 class="cn" id="cn30">
+				数据库缓存</h3>
+			<p class="cn" id="cn31">
+				为了使用数据库表作为缓存后端，首先在数据库中运行这个命令以创建缓存表：</p>
+			<pre class="cn literal-block" id="cn33">
+python manage.py createcachetable [cache_table_name]
+</pre>
+			<p class="cn" id="cn34">
+				这里的[cache_table_name]是要创建的数据库表名。 （这个名字随你的便，只要它是一个有效的表名，而且不是已经在您的数据库中使用的表名。）这个命令以Django的数据库缓存系统所期望的格式创建一个表。</p>
+			<p class="cn" id="cn35">
+				一旦你创建了数据库表，把你的CACHE_BACKEND设置为&rdquo;db://tablename&rdquo;，这里的tablename是数据库表的名字，在这个例子中，缓存表名为my_cache_table: 在这个例子中，高速缓存表的名字是my_cache_table：</p>
+			<pre class="cn literal-block" id="cn37">
+CACHE_BACKEND = &#39;db://my_cache_table&#39;
+</pre>
+			<p class="cn" id="cn38">
+				数据库缓存后端使用你的settings文件指定的同一数据库。你不能为你的缓存表使用不同的数据库后端.</p>
+			<p class="cn" id="cn39">
+				如果你已经有了一个快速，良好的索引数据库服务器，那么数据库缓存的效果最明显。</p>
+		</div>
+		<div class="section" id="id5">
+			<h3 class="cn" id="cn40">
+				文件系统缓存</h3>
+			<p class="cn" id="cn41">
+				要把缓存项目放在文件系统上，请为CACHE_BACKEND使用&rdquo;<a class="reference external" href="file://">file://</a>&ldquo;的缓存类型。例如，要把缓存数据存储在/var/tmp/django_cache上，请使用此设置：</p>
+			<pre class="cn literal-block" id="cn43">
+CACHE_BACKEND = &#39;file:///var/tmp/django_cache&#39;
+</pre>
+			<p class="cn" id="cn44">
+				注意例子中开头有三个斜线。 头两项是file://，第三个是第一个字符的目录路径，/var/tmp/django_cache。如果你使用的是Windows，在file://之后加上文件的驱动器号：</p>
+			<pre class="cn literal-block" id="cn46">
+file://c:/foo/bar
+</pre>
+			<p class="cn" id="cn47">
+				目录路径应该是*绝对*路径，即应该以你的文件系统的根开始。 在设置的结尾放置斜线与否无关紧要。</p>
+			<p class="cn" id="cn48">
+				确认该设置指向的目录存在并且你的Web服务器运行的系统的用户可以读写该目录。 继续上面的例子，如果你的服务器以用户apache运行，确认/var/tmp/django_cache存在并且用户apache可以读写/var/tmp/django_cache目录。</p>
+			<p class="cn" id="cn49">
+				每个缓存值将被存储为单独的文件，其内容是Python的pickle模块以序列化(&ldquo;pickled&rdquo;)形式保存的缓存数据。 每个文件的名称是缓存键，以规避开安全文件系统的使用。</p>
+		</div>
+		<div class="section" id="id6">
+			<h3 class="cn" id="cn50">
+				本地内存缓存</h3>
+			<p class="cn" id="cn51">
+				如果你想利用内存缓存的速度优势，但又不能使用Memcached，可以考虑使用本地存储器缓存后端。 此缓存的多进程和线程安全。 设置 <tt class="docutils literal"><span class="pre">CACHE_BACKEND</span></tt> 为 <tt class="docutils literal"><span class="pre">locmem:///</span></tt> 来使用它，例如:</p>
+			<pre class="cn literal-block" id="cn53">
+CACHE_BACKEND = &#39;locmem:///&#39;
+</pre>
+			<p class="cn" id="cn54">
+				请注意，每个进程都有自己私有的缓存实例，这意味着跨进程缓存是不可能的。 这显然也意味着本地内存缓存效率并不是特别高，所以对产品环境来说它可能不是一个好选择。 对开发来说还不错。</p>
+		</div>
+		<div class="section" id="id7">
+			<h3 class="cn" id="cn55">
+				仿缓存（供开发时使用）</h3>
+			<p class="cn" id="cn56">
+				最后，Django提供了一个假缓存（只是实现了缓存接口，实际上什么都不做）。</p>
+			<p class="cn" id="cn57">
+				假如你有一个产品站点，在许多地方使用高度缓存，但在开发/测试环境中，你不想缓存，也不想改变代码，这就非常有用了。 要激活虚拟缓存，就像这样设置CACHE_BACKEND：</p>
+			<pre class="cn literal-block" id="cn59">
+CACHE_BACKEND = &#39;dummy:///&#39;
+</pre>
+		</div>
+		<div class="section" id="id8">
+			<h3 class="cn" id="cn60">
+				使用自定义缓存后端</h3>
+			<p class="cn" id="cn61">
+				尽管Django包含对许多缓存后端的支持，在某些情况下，你仍然想使用自定义缓存后端。 要让Django使用外部缓存后端，需要使用一个Python import路径作为的CACHE_BACKEND URI的（第一个冒号前的部分），像这样：</p>
+			<pre class="cn literal-block" id="cn63">
+CACHE_BACKEND = &#39;path.to.backend://&#39;
+</pre>
+			<p class="cn" id="cn64">
+				如果您构建自己的后端，你可以参考标准缓存后端的实现。 源代码在Django的代码目录的django/core/cache/backends/下。</p>
+			<p class="cn" id="cn65">
+				注意 如果没有一个真正令人信服的理由，比如主机不支持，你就应该坚持使用Django包含的缓存后端。 它们经过大量测试，并且易于使用。</p>
+		</div>
+		<div class="section" id="cache-backend">
+			<h3 class="cn" id="cn66">
+				CACHE_BACKEND参数</h3>
+			<p class="cn" id="cn67">
+				每个缓存后端都可能使用参数。 它们在CACHE_BACKEND设置中以查询字符串形式给出。 有效参数如下：</p>
+			<blockquote>
+				<p class="cn" id="cn68">
+					<tt class="docutils literal"><span class="pre">timeout</span></tt>:用于缓存的过期时间，以秒为单位。 这个参数默认被设置为300秒（五分钟）。</p>
+				<p class="cn" id="cn69">
+					max_entries：对于内存，文件系统和数据库后端，高速缓存允许的最大条目数，超出这个数则旧值将被删除。 这个参数默认是300。</p>
+				<p class="cn" id="cn70">
+					<tt class="docutils literal"><span class="pre">cull_percentage</span></tt> :当达到 <tt class="docutils literal"><span class="pre">max_entries</span></tt> 的时候,被删除的条目比率。 实际的比率是 <tt class="docutils literal"><span class="pre">1/cull_percentage</span></tt> ,所以设置cull_frequency=2就是在达到 <tt class="docutils literal"><span class="pre">max_entries</span></tt> 的时候去除一半数量的缓存。</p>
+				<p class="cn" id="cn71">
+					把 <tt class="docutils literal"><span class="pre">cull_frequency</span></tt> 的值设置为 <tt class="docutils literal"><span class="pre">0</span></tt> 意味着当达到 <tt class="docutils literal"><span class="pre">max_entries</span></tt> 时,缓存将被清空。 这将以很多缓存丢失为代价,大大提高接受访问的速度。</p>
+			</blockquote>
+			<p class="cn" id="cn72">
+				在这个例子中， <tt class="docutils literal"><span class="pre">timeout</span></tt> 被设成 <tt class="docutils literal"><span class="pre">60</span></tt></p>
+			<pre class="cn literal-block" id="cn74">
+CACHE_BACKEND = &quot;memcached://127.0.0.1:11211/?timeout=60&quot;
+</pre>
+			<p class="cn" id="cn75">
+				而在这个例子中， <tt class="docutils literal"><span class="pre">timeout</span></tt> 设为 <tt class="docutils literal"><span class="pre">30</span></tt> 而 <tt class="docutils literal"><span class="pre">max_entries</span></tt> 为 <tt class="docutils literal"><span class="pre">400</span></tt> :</p>
+			<pre class="cn literal-block" id="cn77">
+CACHE_BACKEND = &quot;locmem:///?timeout=30&amp;max_entries=400&quot;
+</pre>
+			<p class="cn" id="cn78">
+				其中，非法的参数与非法的参数值都将被忽略。</p>
+		</div>
+	</div>
+	<div class="section" id="cache">
+		<h2 class="cn" id="cn79">
+			站点级 Cache</h2>
+		<p class="cn" id="cn80">
+			一旦高速缓存设置，最简单的方法是使用缓存缓存整个网站。您需要添加&rsquo;django.middleware.cache.UpdateCacheMiddleware&rsquo;和 &lsquo;django.middleware.cache.FetchFromCacheMiddleware&rsquo;到您的MIDDLEWARE_CLASSES设置中，在这个例子中是：</p>
+		<pre class="cn literal-block" id="cn82">
+MIDDLEWARE_CLASSES = (
+    &#39;django.middleware.cache.UpdateCacheMiddleware&#39;,
+    &#39;django.middleware.common.CommonMiddleware&#39;,
+    &#39;django.middleware.cache.FetchFromCacheMiddleware&#39;,
+)
+</pre>
+		<p class="cn" id="cn83">
+			注意：</p>
+		<p class="cn" id="cn84">
+			不，这里并没有排版错误： 修改的中间件，必须放在列表的开始位置，而fectch中间件，必须放在最后。 细节有点费解，如果您想了解完整内幕请参看下面的MIDDLEWARE_CLASSES顺序。</p>
+		<p class="cn" id="cn85">
+			然后，在你的Django settings文件里加入下面所需的设置：</p>
+		<ul class="simple">
+			<li class="cn" id="cn86">
+				<p class="first cn" id="cn86">
+					<tt class="docutils literal"><span class="pre">CACHE_MIDDLEWARE_SECONDS</span></tt> :每个页面应该被缓存的秒数。</p>
+			</li>
+		</ul>
+		<ul class="simple">
+			<li class="cn" id="cn87">
+				<p class="first cn" id="cn87">
+					<tt class="docutils literal"><span class="pre">CACHE_MIDDLEWARE_KEY_PREFIX</span></tt> ：如果缓存被多个使用相同Django安装的网站所共享，那么把这个值设成当前网站名，或其他能代表这个Django实例的唯一字符串，以避免key发生冲突。 如果你不在意的话可以设成空字符串。</p>
+			</li>
+		</ul>
+		<p class="cn" id="cn88">
+			缓存中间件缓存每个没有GET或者POST参数的页面。或者，如果CACHE_MIDDLEWARE_ANONYMOUS_ONLY设置为True，只有匿名请求（即不是由登录的用户）将被缓存。 如果想取消用户相关页面（user-specific pages）的缓存，例如Djangos 的管理界面，这是一种既简单又有效的方法。 CACHE_MIDDLEWARE_ANONYMOUS_ONLY，你应该确保你已经启动AuthenticationMiddleware。</p>
+		<p class="cn" id="cn89">
+			此外，缓存中间件为每个HttpResponse自动设置了几个头部信息：</p>
+		<ul class="simple">
+			<li class="cn" id="cn90">
+				<p class="first cn" id="cn90">
+					当一个新(没缓存的)版本的页面被请求时设置Last-Modified头部为当前日期/时间。</p>
+			</li>
+		</ul>
+		<ul class="simple">
+			<li class="cn" id="cn91">
+				<p class="first cn" id="cn91">
+					设置Expires头部为当前日期/时间加上定义的CACHE_MIDDLEWARE_SECONDS。</p>
+			</li>
+		</ul>
+		<ul class="simple">
+			<li class="cn" id="cn92">
+				<p class="first cn" id="cn92">
+					设置Cache-Control头部来给页面一个最长的有效期，值来自于CACHE_MIDDLEWARE_SECONDS设置。</p>
+			</li>
+		</ul>
+		<p class="cn" id="cn93">
+			参阅更多的中间件第17章。</p>
+		<p class="cn" id="cn94">
+			如果视图设置自己的缓存到期时间（即 它有一个最大年龄在头部信息的<tt class="docutils literal"><span class="pre">Cache-Control</span></tt>中），那么页面将缓存直到过期，而不是CACHE_MIDDLEWARE_SECONDS。使用django.views.decorators.cache装饰器，您可以轻松地设置视图的到期时间（使用cache_control装饰器）或禁用缓存视图（使用never_cache装饰器）。 请参阅下面的&rdquo;使用其他头部信息&ldquo;小节以了解装饰器的更多信息。</p>
+	</div>
+	<div class="section" id="id9">
+		<h2 class="cn" id="cn95">
+			视图级缓存</h2>
+		<p class="cn" id="cn96">
+			更加颗粒级的缓存框架使用方法是对单个视图的输出进行缓存。 <tt class="docutils literal"><span class="pre">django.views.decorators.cache</span></tt>定义了一个自动缓存视图响应的<tt class="docutils literal"><span class="pre">cache_page</span></tt>装饰器。 他是很容易使用的:</p>
+		<pre class="cn literal-block" id="cn98">
+from django.views.decorators.cache import cache_page
+
+def my_view(request):
+    # ...
+
+my_view = cache_page(my_view, 60 * 15)
+</pre>
+		<p class="cn" id="cn99">
+			也可以使用Python2.4的装饰器语法：</p>
+		<pre class="cn literal-block" id="cn101">
+@cache_page(60 * 15)
+def my_view(request):
+    # ...
+</pre>
+		<p class="cn" id="cn102">
+			<tt class="docutils literal"><span class="pre">cache_page</span></tt> 只接受一个参数： 以秒计的缓存超时时间。 在前例中， &ldquo;my_view()&rdquo; 视图的结果将被缓存 15 分钟。 （注意： 为了提高可读性，该参数被书写为 <tt class="docutils literal"><span class="pre">60</span> <span class="pre">*</span> <span class="pre">15</span></tt> 。 <tt class="docutils literal"><span class="pre">60</span> <span class="pre">*</span> <span class="pre">15</span></tt> 将被计算为 <tt class="docutils literal"><span class="pre">900</span></tt> ，也就是说15 分钟乘以每分钟 60 秒。）</p>
+		<p class="cn" id="cn103">
+			和站点缓存一样，视图缓存与 URL 无关。 如果多个 URL 指向同一视图，每个视图将会分别缓存。 继续 <tt class="docutils literal"><span class="pre">my_view</span></tt> 范例，如果 URLconf 如下所示：</p>
+		<pre class="cn literal-block" id="cn105">
+urlpatterns = (&#39;&#39;,
+    (r&#39;^foo/(\d{1,2})/$&#39;, my_view),
+)
+</pre>
+		<p class="cn" id="cn106">
+			那么正如你所期待的那样，发送到 <tt class="docutils literal"><span class="pre">/foo/1/</span></tt> 和 <tt class="docutils literal"><span class="pre">/foo/23/</span></tt> 的请求将会分别缓存。 但一旦发出了特定的请求（如： /foo/23/ ），之后再度发出的指向该 URL 的请求将使用缓存。</p>
+		<div class="section" id="urlconf">
+			<h3 class="cn" id="cn107">
+				在 URLconf 中指定视图缓存</h3>
+			<p class="cn" id="cn108">
+				前一节中的范例将视图硬编码为使用缓存，因为 <tt class="docutils literal"><span class="pre">cache_page</span></tt> 在适当的位置对 <tt class="docutils literal"><span class="pre">my_view</span></tt> 函数进行了转换。 该方法将视图与缓存系统进行了耦合，从几个方面来说并不理想。 例如，你可能想在某个无缓存的站点中重用该视图函数，或者你可能想将该视图发布给那些不想通过缓存使用它们的人。 解决这些问题的方法是在 URLconf 中指定视图缓存，而不是紧挨着这些视图函数本身来指定。</p>
+			<p class="cn" id="cn109">
+				完成这项工作非常简单： 在 URLconf 中用到这些视图函数的时候简单地包裹一个 <tt class="docutils literal"><span class="pre">cache_page</span></tt> 。以下是刚才用到过的 URLconf : 这是之前的URLconf：</p>
+			<pre class="cn literal-block" id="cn111">
+urlpatterns = (&#39;&#39;,
+    (r&#39;^foo/(\d{1,2})/$&#39;, my_view),
+)
+</pre>
+			<p class="cn" id="cn112">
+				以下是同一个 URLconf ，不过用 <tt class="docutils literal"><span class="pre">cache_page</span></tt> 包裹了 <tt class="docutils literal"><span class="pre">my_view</span></tt> ：</p>
+			<pre class="cn literal-block" id="cn114">
+from django.views.decorators.cache import cache_page
+
+urlpatterns = (&#39;&#39;,
+    (r&#39;^foo/(\d{1,2})/$&#39;, cache_page(my_view, 60 * 15)),
+)
+</pre>
+			<p class="cn" id="cn115">
+				如果采取这种方法, 不要忘记在 URLconf 中导入 <tt class="docutils literal"><span class="pre">cache_page</span></tt>。</p>
+		</div>
+	</div>
+	<div class="section" id="id10">
+		<h2 class="cn" id="cn116">
+			模板碎片缓存</h2>
+		<p class="cn" id="cn117">
+			你同样可以使用<tt class="docutils literal"><span class="pre">cache</span></tt>标签来缓存模板片段。 在模板的顶端附近加入<tt class="docutils literal"><span class="pre">{%</span> <span class="pre">load</span> <span class="pre">cache</span> <span class="pre">%}</span></tt>以通知模板存取缓存标签。</p>
+		<p class="cn" id="cn118">
+			模板标签<tt class="docutils literal"><span class="pre">{%</span> <span class="pre">cache</span> <span class="pre">%}</span></tt>在给定的时间内缓存了块的内容。 它至少需要两个参数: 缓存超时时间（以秒计）和指定缓存片段的名称。 示例：</p>
+		<pre class="cn literal-block" id="cn120">
+{% load cache %}
+{% cache 500 sidebar %}
+    .. sidebar ..
+{% endcache %}
+</pre>
+		<p class="cn" id="cn121">
+			有时你可能想缓存基于片段的动态内容的多份拷贝。 比如，你想为上一个例子的每个用户分别缓存侧边栏。 这样只需要给<tt class="docutils literal"><span class="pre">{%</span> <span class="pre">cache</span> <span class="pre">%}</span></tt>传递额外的参数以标识缓存片段。</p>
+		<pre class="cn literal-block" id="cn123">
+{% load cache %}
+{% cache 500 sidebar request.user.username %}
+    .. sidebar for logged in user ..
+{% endcache %}
+</pre>
+		<p class="cn" id="cn124">
+			传递不止一个参数也是可行的。 简单地把参数传给<tt class="docutils literal"><span class="pre">{%</span> <span class="pre">cache</span> <span class="pre">%}</span></tt>。</p>
+		<p class="cn" id="cn125">
+			缓存超时时间可以作为模板变量，只要它可以解析为整数值。 例如，如果模板变量<tt class="docutils literal"><span class="pre">my_timeout</span></tt>值为600，那么以下两个例子是等价的。</p>
+		<pre class="cn literal-block" id="cn127">
+{% cache 600 sidebar %} ... {% endcache %}
+{% cache my_timeout sidebar %} ... {% endcache %}
+</pre>
+		<p class="cn" id="cn128">
+			这个特性在避免模板重复方面非常有用。 可以把超时时间保存在变量里，然后在别的地方复用。</p>
+	</div>
+	<div class="section" id="api">
+		<h2 class="cn" id="cn129">
+			低层次缓存API</h2>
+		<p class="cn" id="cn130">
+			有些时候，对整个经解析的页面进行缓存并不会给你带来太多好处，事实上可能会过犹不及。</p>
+		<p class="cn" id="cn131">
+			比如说，也许你的站点所包含的一个视图依赖几个费时的查询，每隔一段时间结果就会发生变化。 在这种情况下，使用站点级缓存或者视图级缓存策略所提供的整页缓存并不是最理想的，因为你可能不会想对整个结果进行缓存（因为一些数据经常变化），但你仍然会想对很少变化的部分进行缓存。</p>
+		<p class="cn" id="cn132">
+			针对这样的情况，Django提供了简单低级的缓存API。 你可以通过这个API，以任何你需要的粒度来缓存对象。 你可以对所有能够安全进行 pickle 处理的 Python 对象进行缓存： 字符串、字典和模型对象列表等等。 （查阅 Python 文档可以了解到更多关于 pickling 的信息。）</p>
+		<p class="cn" id="cn133">
+			缓存模块<tt class="docutils literal"><span class="pre">django.core.cache</span></tt>拥有一个自动依据<tt class="docutils literal"><span class="pre">CACHE_BACKEND</span></tt>设置创建的<tt class="docutils literal"><span class="pre">django.core.cache</span></tt>对象。</p>
+		<pre class="cn literal-block" id="cn135">
+&gt;&gt;&gt; from django.core.cache import cache
+</pre>
+		<p class="cn" id="cn136">
+			基本的接口是 <tt class="docutils literal"><span class="pre">set(key,</span> <span class="pre">value,</span> <span class="pre">timeout_seconds)</span></tt> 和 <tt class="docutils literal"><span class="pre">get(key)</span></tt> :</p>
+		<pre class="cn literal-block" id="cn138">
+&gt;&gt;&gt; cache.set(&#39;my_key&#39;, &#39;hello, world!&#39;, 30)
+&gt;&gt;&gt; cache.get(&#39;my_key&#39;)
+&#39;hello, world!&#39;
+</pre>
+		<p class="cn" id="cn139">
+			<tt class="docutils literal"><span class="pre">timeout_seconds</span></tt> 参数是可选的, 并且默认为前面讲过的 <tt class="docutils literal"><span class="pre">CACHE_BACKEND</span></tt> 设置中的 <tt class="docutils literal"><span class="pre">timeout</span></tt> 参数.</p>
+		<p class="cn" id="cn140">
+			如果缓存中不存在该对象，那么<tt class="docutils literal"><span class="pre">cache.get()</span></tt>会返回<tt class="docutils literal"><span class="pre">None</span></tt>。</p>
+		<pre class="cn literal-block" id="cn142">
+# Wait 30 seconds for &#39;my_key&#39; to expire...
+
+&gt;&gt;&gt; cache.get(&#39;my_key&#39;)
+None
+</pre>
+		<p class="cn" id="cn143">
+			我们不建议在缓存中保存 <tt class="docutils literal"><span class="pre">None</span></tt> 常量，因为你将无法区分你保存的 <tt class="docutils literal"><span class="pre">None</span></tt> 变量及由返回值 <tt class="docutils literal"><span class="pre">None</span></tt> 所标识的缓存未命中。</p>
+		<p class="cn" id="cn144">
+			<tt class="docutils literal"><span class="pre">cache.get()</span></tt> 接受一个 <tt class="docutils literal"><span class="pre">缺省</span></tt> 参数。 它指定了当缓存中不存在该对象时所返回的值：</p>
+		<pre class="cn literal-block" id="cn146">
+&gt;&gt;&gt; cache.get(&#39;my_key&#39;, &#39;has expired&#39;)
+&#39;has expired&#39;
+</pre>
+		<p class="cn" id="cn147">
+			使用<tt class="docutils literal"><span class="pre">add()</span></tt>方法来新增一个原来没有的键值。 它接受的参数和<tt class="docutils literal"><span class="pre">set()</span></tt>一样，但是并不去尝试更新已经存在的键值。</p>
+		<pre class="cn literal-block" id="cn149">
+&gt;&gt;&gt; cache.set(&#39;add_key&#39;, &#39;Initial value&#39;)
+&gt;&gt;&gt; cache.add(&#39;add_key&#39;, &#39;New value&#39;)
+&gt;&gt;&gt; cache.get(&#39;add_key&#39;)
+&#39;Initial value&#39;
+</pre>
+		<p class="cn" id="cn150">
+			如果想确定<tt class="docutils literal"><span class="pre">add()</span></tt>是否成功添加了缓存值，你应该测试返回值。 成功返回True，失败返回False。</p>
+		<p class="cn" id="cn151">
+			还有个<tt class="docutils literal"><span class="pre">get_many()</span></tt>接口。 <tt class="docutils literal"><span class="pre">get_many()</span></tt> 所返回的字典包括了你所请求的存在于缓存中且未超时的所有键值。</p>
+		<pre class="cn literal-block" id="cn153">
+&gt;&gt;&gt; cache.set(&#39;a&#39;, 1)
+&gt;&gt;&gt; cache.set(&#39;b&#39;, 2)
+&gt;&gt;&gt; cache.set(&#39;c&#39;, 3)
+&gt;&gt;&gt; cache.get_many([&#39;a&#39;, &#39;b&#39;, &#39;c&#39;])
+{&#39;a&#39;: 1, &#39;b&#39;: 2, &#39;c&#39;: 3}
+</pre>
+		<p class="cn" id="cn154">
+			最后,你可以用 <tt class="docutils literal"><span class="pre">cache.delete()</span></tt> 显式地删除关键字。</p>
+		<pre class="cn literal-block" id="cn156">
+&gt;&gt;&gt; cache.delete(&#39;a&#39;)
+</pre>
+		<p class="cn" id="cn157">
+			也可以使用<tt class="docutils literal"><span class="pre">incr()</span></tt>或者<tt class="docutils literal"><span class="pre">decr()</span></tt>来增加或者减少已经存在的键值。 默认情况下，增加或减少的值是1。可以用参数来制定其他值。 如果尝试增减不存在的键值会抛出ValueError。</p>
+		<pre class="cn literal-block" id="cn159">
+&gt;&gt;&gt; cache.set(&#39;num&#39;, 1)
+&gt;&gt;&gt; cache.incr(&#39;num&#39;)
+2
+&gt;&gt;&gt; cache.incr(&#39;num&#39;, 10)
+12
+&gt;&gt;&gt; cache.decr(&#39;num&#39;)
+11
+&gt;&gt;&gt; cache.decr(&#39;num&#39;, 5)
+6
+</pre>
+		<p class="cn" id="cn160">
+			注意</p>
+		<p class="cn" id="cn161">
+			<tt class="docutils literal"><span class="pre">incr()</span></tt>/<tt class="docutils literal"><span class="pre">decr()</span></tt>方法不是原子操作。 在支持原子增减的缓存后端上（最著名的是memcached），增减操作才是原子的。 然而，如果后端并不原生支持增减操作，也可以通过取值/更新两步操作来实现。</p>
+	</div>
+	<div class="section" id="id11">
+		<h2 class="cn" id="cn162">
+			上游缓存</h2>
+		<p class="cn" id="cn163">
+			目前为止，本章的焦点一直是对你 <em>自己的</em> 数据进行缓存。 但还有一种与 Web 开发相关的缓存： 上游缓存。 有一些系统甚至在请求到达站点之前就为用户进行页面缓存。</p>
+		<p class="cn" id="cn164">
+			下面是上游缓存的几个例子：</p>
+		<ul class="simple">
+			<li class="cn" id="cn165">
+				<p class="first cn" id="cn165">
+					你的 ISP (互联网服务商)可能会对特定的页面进行缓存，因此如果你向 <a class="reference external" href="http://example.com/">http://example.com/</a> 请求一个页面，你的 ISP 可能无需直接访问 example.com 就能将页面发送给你。 而 example.com 的维护者们却无从得知这种缓存，ISP 位于 example.com 和你的网页浏览器之间，透明地处理所有的缓存。</p>
+			</li>
+		</ul>
+		<ul class="simple">
+			<li class="cn" id="cn166">
+				<p class="first cn" id="cn166">
+					你的 Django 网站可能位于某个 <em>代理缓存</em> 之后，例如 Squid 网页代理缓存 (<a class="reference external" href="http://www.squid-cache.org/">http://www.squid-cache.org/</a>)，该缓存为提高性能而对页面进行缓存。 在此情况下 ，每个请求将首先由代理服务器进行处理，然后仅在需要的情况下才被传递至你的应用程序。</p>
+			</li>
+		</ul>
+		<ul class="simple">
+			<li class="cn" id="cn167">
+				<p class="first cn" id="cn167">
+					你的网页浏览器也对页面进行缓存。 如果某网页送出了相应的头部，你的浏览器将在为对该网页的后续的访问请求使用本地缓存的拷贝，甚至不会再次联系该网页查看是否发生了变化。</p>
+			</li>
+		</ul>
+		<p class="cn" id="cn168">
+			上游缓存将会产生非常明显的效率提升，但也存在一定风险。 许多网页的内容依据身份验证以及许多其他变量的情况发生变化，缓存系统仅盲目地根据 URL 保存页面，可能会向这些页面的后续访问者暴露不正确或者敏感的数据。</p>
+		<p class="cn" id="cn169">
+			举个例子，假定你在使用网页电邮系统，显然收件箱页面的内容取决于登录的是哪个用户。 如果 ISP 盲目地缓存了该站点，那么第一个用户通过该 ISP 登录之后，他（或她）的用户收件箱页面将会缓存给后续的访问者。 这一点也不好玩。</p>
+		<p class="cn" id="cn170">
+			幸运的是， HTTP 提供了解决该问题的方案。 已有一些 HTTP 头标用于指引上游缓存根据指定变量来区分缓存内容，并通知缓存机制不对特定页面进行缓存。 我们将在本节后续部分将对这些头标进行阐述。</p>
+	</div>
+	<div class="section" id="vary">
+		<h2 class="cn" id="cn171">
+			使用 Vary头部</h2>
+		<p class="cn" id="cn172">
+			<tt class="docutils literal"><span class="pre">Vary</span></tt> 头部定义了缓存机制在构建其缓存键值时应当将哪个请求头标考虑在内。 例如，如果网页的内容取决于用户的语言偏好，该页面被称为根据语言而不同。</p>
+		<p class="cn" id="cn173">
+			缺省情况下，Django 的缓存系统使用所请求的路径（比如：<tt class="docutils literal"><span class="pre">&quot;/stories/2005/jun/23/bank_robbed/&quot;</span></tt> ）来创建其缓存键。这意味着每次请求都会使用同样的缓存版本，不考虑才客户端cookie和语言配置的不同。 除非你使用<tt class="docutils literal"><span class="pre">Vary</span></tt>头部通知缓存机制页面输出要依据请求头里的cookie，语言等的设置而不同。</p>
+		<p class="cn" id="cn174">
+			要在 Django 完成这项工作，可使用便利的 <tt class="docutils literal"><span class="pre">vary_on_headers</span></tt> 视图装饰器，如下所示：</p>
+		<pre class="cn literal-block" id="cn176">
+from django.views.decorators.vary import vary_on_headers
+
+# Python 2.3 syntax.
+def my_view(request):
+    # ...
+my_view = vary_on_headers(my_view, &#39;User-Agent&#39;)
+
+# Python 2.4+ decorator syntax.
+@vary_on_headers(&#39;User-Agent&#39;)
+def my_view(request):
+    # ...
+</pre>
+		<p class="cn" id="cn177">
+			在这种情况下，缓存机制（如 Django 自己的缓存中间件）将会为每一个单独的用户浏览器缓存一个独立的页面版本。</p>
+		<p class="cn" id="cn178">
+			使用 <tt class="docutils literal"><span class="pre">vary_on_headers</span></tt> 装饰器而不是手动设置 <tt class="docutils literal"><span class="pre">Vary</span></tt> 头部（使用像 <tt class="docutils literal"><span class="pre">response[&#39;Vary&#39;]</span> <span class="pre">=</span> <span class="pre">&#39;user-agent&#39;</span></tt> 之类的代码）的好处是修饰器在（可能已经存在的） <em>Vary</em> 之上进行 <tt class="docutils literal"><span class="pre">添加</span></tt> ，而不是从零开始设置，且可能覆盖该处已经存在的设置。</p>
+		<p class="cn" id="cn179">
+			你可以向 <tt class="docutils literal"><span class="pre">vary_on_headers()</span></tt> 传入多个头标：</p>
+		<pre class="cn literal-block" id="cn181">
+@vary_on_headers(&#39;User-Agent&#39;, &#39;Cookie&#39;)
+def my_view(request):
+    # ...
+</pre>
+		<p class="cn" id="cn182">
+			该段代码通知上游缓存对 <em>两者</em> 都进行不同操作，也就是说 user-agent 和 cookie 的每种组合都应获取自己的缓存值。 举例来说，使用 <tt class="docutils literal"><span class="pre">Mozilla</span></tt> 作为 user-agent 而 <tt class="docutils literal"><span class="pre">foo=bar</span></tt> 作为 cookie 值的请求应该和使用 <tt class="docutils literal"><span class="pre">Mozilla</span></tt> 作为 user-agent 而 <tt class="docutils literal"><span class="pre">foo=ham</span></tt> 的请求应该被视为不同请求。</p>
+		<p class="cn" id="cn183">
+			由于根据 cookie 而区分对待是很常见的情况，因此有 <tt class="docutils literal"><span class="pre">vary_on_cookie</span></tt> 装饰器。 以下两个视图是等效的：</p>
+		<pre class="cn literal-block" id="cn185">
+@vary_on_cookie
+def my_view(request):
+    # ...
+
+@vary_on_headers(&#39;Cookie&#39;)
+def my_view(request):
+    # ...
+</pre>
+		<p class="cn" id="cn186">
+			传入 <tt class="docutils literal"><span class="pre">vary_on_headers</span></tt> 头标是大小写不敏感的； <tt class="docutils literal"><span class="pre">&quot;User-Agent&quot;</span></tt> 与 <tt class="docutils literal"><span class="pre">&quot;user-agent&quot;</span></tt> 完全相同。</p>
+		<p class="cn" id="cn187">
+			你也可以直接使用帮助函数：<tt class="docutils literal"><span class="pre">django.utils.cache.patch_vary_headers</span></tt>。该函数设置或增加 Vary header ，例如：</p>
+		<pre class="cn literal-block" id="cn189">
+from django.utils.cache import patch_vary_headers
+
+def my_view(request):
+    # ...
+    response = render_to_response(&#39;template_name&#39;, context)
+    patch_vary_headers(response, [&#39;Cookie&#39;])
+    return response
+</pre>
+		<p class="cn" id="cn190">
+			<tt class="docutils literal"><span class="pre">patch_vary_headers</span></tt> 以一个 <tt class="docutils literal"><span class="pre">HttpResponse</span></tt> 实例为第一个参数，以一个大小写不敏感的头标名称列表或元组为第二个参数。</p>
+	</div>
+	<div class="section" id="id12">
+		<h2 class="cn" id="cn191">
+			控制缓存： 使用其它头部</h2>
+		<p class="cn" id="cn192">
+			关于缓存剩下的问题是数据的隐私性以及在级联缓存中数据应该在何处储存的问题。</p>
+		<p class="cn" id="cn193">
+			通常用户将会面对两种缓存： 他或她自己的浏览器缓存（私有缓存）以及他或她的提供者缓存（公共缓存）。 公共缓存由多个用户使用，而受其他某人的控制。 这就产生了你不想遇到的敏感数据的问题，比如说你的银行账号被存储在公众缓存中。 因此，Web 应用程序需要以某种方式告诉缓存那些数据是私有的，哪些是公共的。</p>
+		<p class="cn" id="cn194">
+			解决方案是标示出某个页面缓存应当是私有的。 要在 Django 中完成此项工作，可使用 <tt class="docutils literal"><span class="pre">cache_control</span></tt> 视图修饰器： 例如：</p>
+		<pre class="cn literal-block" id="cn196">
+from django.views.decorators.cache import cache_control
+
+@cache_control(private=True)
+def my_view(request):
+    # ...
+</pre>
+		<p class="cn" id="cn197">
+			该修饰器负责在后台发送相应的 HTTP 头部。</p>
+		<p class="cn" id="cn198">
+			还有一些其他方法可以控制缓存参数。 例如, HTTP 允许应用程序执行如下操作:</p>
+		<ul class="simple">
+			<li class="cn" id="cn199">
+				<p class="first cn" id="cn199">
+					定义页面可以被缓存的最大时间。</p>
+			</li>
+		</ul>
+		<ul class="simple">
+			<li class="cn" id="cn200">
+				<p class="first cn" id="cn200">
+					指定某个缓存是否总是检查较新版本，仅当无更新时才传递所缓存内容。 （一些缓存即便在服务器页面发生变化的情况下仍然会传送所缓存的内容，只因为缓存拷贝没有过期。）</p>
+			</li>
+		</ul>
+		<p class="cn" id="cn201">
+			在 Django 中，可使用 <tt class="docutils literal"><span class="pre">cache_control</span></tt> 视图修饰器指定这些缓存参数。 在本例中， <tt class="docutils literal"><span class="pre">cache_control</span></tt> 告诉缓存对每次访问都重新验证缓存并在最长 3600 秒内保存所缓存版本：</p>
+		<pre class="cn literal-block" id="cn203">
+from django.views.decorators.cache import cache_control
+
+@cache_control(must_revalidate=True, max_age=3600)
+def my_view(request):
+    # ...
+</pre>
+		<p class="cn" id="cn204">
+			在 <tt class="docutils literal"><span class="pre">cache_control()</span></tt> 中，任何合法的<tt class="docutils literal"><span class="pre">Cache-Control</span></tt> HTTP 指令都是有效的。下面是完整列表：</p>
+		<ul class="simple">
+			<li class="cn" id="cn205">
+				<p class="first cn" id="cn205">
+					<tt class="docutils literal"><span class="pre">public=True</span></tt></p>
+			</li>
+		</ul>
+		<ul class="simple">
+			<li class="cn" id="cn206">
+				<p class="first cn" id="cn206">
+					<tt class="docutils literal"><span class="pre">private=True</span></tt></p>
+			</li>
+		</ul>
+		<ul class="simple">
+			<li class="cn" id="cn207">
+				<p class="first cn" id="cn207">
+					<tt class="docutils literal"><span class="pre">no_cache=True</span></tt></p>
+			</li>
+		</ul>
+		<ul class="simple">
+			<li class="cn" id="cn208">
+				<p class="first cn" id="cn208">
+					<tt class="docutils literal"><span class="pre">no_transform=True</span></tt></p>
+			</li>
+		</ul>
+		<ul class="simple">
+			<li class="cn" id="cn209">
+				<p class="first cn" id="cn209">
+					<tt class="docutils literal"><span class="pre">must_revalidate=True</span></tt></p>
+			</li>
+		</ul>
+		<ul class="simple">
+			<li class="cn" id="cn210">
+				<p class="first cn" id="cn210">
+					<tt class="docutils literal"><span class="pre">proxy_revalidate=True</span></tt></p>
+			</li>
+		</ul>
+		<ul class="simple">
+			<li class="cn" id="cn211">
+				<p class="first cn" id="cn211">
+					<tt class="docutils literal"><span class="pre">max_age=num_seconds</span></tt></p>
+			</li>
+		</ul>
+		<ul class="simple">
+			<li class="cn" id="cn212">
+				<p class="first cn" id="cn212">
+					<tt class="docutils literal"><span class="pre">s_maxage=num_seconds</span></tt></p>
+			</li>
+		</ul>
+		<p class="cn" id="cn213">
+			缓存中间件已经使用 <tt class="docutils literal"><span class="pre">CACHE_MIDDLEWARE_SETTINGS</span></tt> 设置设定了缓存头部 max-age 。 如果你在cache_control修饰器中使用了自定义的max_age，该修饰器将会取得优先权，该头部的值将被正确地被合并。</p>
+		<p class="cn" id="cn214">
+			如果你想用头部完全禁掉缓存，<tt class="docutils literal"><span class="pre">django.views.decorators.cache.never_cache</span></tt>装饰器可以添加确保响应不被缓存的头部信息。 例如：</p>
+		<pre class="cn literal-block" id="cn216">
+from django.views.decorators.cache import never_cache
+
+@never_cache
+def myview(request):
+    # ...
+</pre>
+	</div>
+	<div class="section" id="id13">
+		<h2 class="cn" id="cn217">
+			其他优化</h2>
+		<p class="cn" id="cn218">
+			Django 带有一些其它中间件可帮助您优化应用程序的性能:</p>
+		<ul class="simple">
+			<li class="cn" id="cn219">
+				<p class="first cn" id="cn219">
+					<tt class="docutils literal"><span class="pre">django.middleware.http.ConditionalGetMiddleware</span></tt> 为现代浏览器增加了有条件的，基于 <tt class="docutils literal"><span class="pre">ETag</span></tt> 和 <tt class="docutils literal"><span class="pre">Last-Modified</span></tt> 头标的GET响应的相关支持。</p>
+			</li>
+		</ul>
+		<ul class="simple">
+			<li class="cn" id="cn220">
+				<p class="first cn" id="cn220">
+					<tt class="docutils literal"><span class="pre">django.middleware.gzip.GZipMiddleware</span></tt> 为所有现代浏览器压缩响应内容，以节省带宽和传送时间。</p>
+			</li>
+		</ul>
+	</div>
+	<div class="section" id="middleware-classes">
+		<h2 class="cn" id="cn221">
+			MIDDLEWARE_CLASSES 的顺序</h2>
+		<p class="cn" id="cn222">
+			如果使用缓存中间件，注意在<tt class="docutils literal"><span class="pre">MIDDLEWARE_CLASSES</span></tt>设置中正确配置。 因为缓存中间件需要知道哪些头部信息由哪些缓存区来区分。 中间件总是尽可能得想<tt class="docutils literal"><span class="pre">Vary</span></tt>响应头中添加信息。</p>
+		<p class="cn" id="cn223">
+			<tt class="docutils literal"><span class="pre">UpdateCacheMiddleware</span></tt>在相应阶段运行。因为中间件是以相反顺序运行的，所有列表顶部的中间件反而<em>last</em>在相应阶段的最后运行。所有，你需要确保<tt class="docutils literal"><span class="pre">UpdateCacheMiddleware</span></tt>排在任何可能往<em>Vary</em>头部添加信息的中间件<tt class="docutils literal"><span class="pre">之前</span></tt>。 下面的中间件模块就是这样的：</p>
+		<ul class="simple">
+			<li class="cn" id="cn224">
+				<p class="first cn" id="cn224">
+					添加 <tt class="docutils literal"><span class="pre">Cookie</span></tt> 的 <tt class="docutils literal"><span class="pre">SessionMiddleware</span></tt></p>
+			</li>
+		</ul>
+		<ul class="simple">
+			<li class="cn" id="cn225">
+				<p class="first cn" id="cn225">
+					添加 <tt class="docutils literal"><span class="pre">Accept-Encoding</span></tt> 的 <tt class="docutils literal"><span class="pre">GZipMiddleware</span></tt></p>
+			</li>
+		</ul>
+		<ul class="simple">
+			<li class="cn" id="cn226">
+				<p class="first cn" id="cn226">
+					添加<tt class="docutils literal"><span class="pre">Accept-Language</span></tt>的<tt class="docutils literal"><span class="pre">LocaleMiddleware</span></tt></p>
+			</li>
+		</ul>
+		<p class="cn" id="cn227">
+			另一方面，<tt class="docutils literal"><span class="pre">FetchFromCacheMiddleware</span></tt>在请求阶段运行，这时中间件循序执行，所以列表顶端的项目会<em>首先</em>执行。 <tt class="docutils literal"><span class="pre">FetchFromCacheMiddleware</span></tt>也需要在会修改<tt class="docutils literal"><span class="pre">Vary</span></tt>头部的中间件之后运行，所以<tt class="docutils literal"><span class="pre">FetchFromCacheMiddleware</span></tt>必须放在它们<em>后面</em>。</p>
+	</div>
+	<div class="section" id="id14">
+		<h2 class="cn" id="cn228">
+			下一章</h2>
+		<p class="cn" id="cn229">
+			Django捆绑了一系列可选的方便特性。 我们已经介绍了一些： admin站点（第六章）和session/user框架（第十四章）。 下一章中，我们将讲述Django中其他的子框架。</p>
+	</div>
+
+      
+      (责任编辑：admin)
+  </div>
+  <!-- /content -->
+  <div class="dede_pages">
+   <ul class="pagelist">
+    
+   </ul>
+  </div>
+  <!-- /pages -->
+ 
+  <!-- //分享代码开始 -->
+ 	<!-- Baidu Button BEGIN -->
+<div id="bdshare" class="bdshare_t bds_tools_32 get-codes-bdshare">
+<a class="bds_tsina"></a>
+<a class="bds_qzone"></a>
+<a class="bds_tqq"></a>
+<a class="bds_renren"></a>
+<a class="bds_sqq"></a>
+<a class="bds_t163"></a>
+<span class="bds_more"></span>
+<a class="shareCount"></a>
+</div>
+<script type="text/javascript" id="bdshare_js" data="type=tools&amp;uid=6825383" ></script>
+<script type="text/javascript" id="bdshell_js"></script>
+<script type="text/javascript">
+document.getElementById("bdshell_js").src = "http://bdimg.share.baidu.com/static/js/shell_v2.js?cdnversion=" + Math.ceil(new Date()/3600000)
+</script>
+<!-- Baidu Button END -->
+  <!-- //分享代码结束 -->
+  <div class="boxoff"> <strong>------分隔线----------------------------</strong> </div>
+  <div class="handle">
+   <div class="context">
+    <ul>
+     <li>上一篇：<a href='/91code/python/django/2013/0414/django_14.html'>第十四章 django 会话、用户和注册</a> </li>
+     <li>下一篇：没有了 </li>
+    </ul>
+   </div>
+   <!-- /context -->
+   <div class="actbox">
+    <ul>
+     <li id="act-pnt"><a href="#" onClick="window.print();">打印</a></li>
+    </ul>
+   </div>
+   <!-- /actbox -->
+  </div>
+  <!-- /handle -->
+ </div>
+ <!-- /viewbox -->
+ <!-- //AJAX评论区 -->
+ </div>
+<!-- //左边内容结束 -->
+<!-- //右边内容开始 -->
+<div class="pright">
+ <div class="pright">
+  <div style="margin-bottom:10px;"><script src='/plus/ad_js.php?aid=14' language='javascript'></script></div>
+  <div>
+   <dl class="tbox">
+    <dt><strong>栏目列表</strong></dt>
+    <dd>
+     <ul class="d6">
+      <li><a href='/91code/python/django/' class='thisclass'>Django</a></li>
+     </ul>
+    </dd>
+   </dl>
+  </div>
+  <div id="contentRtPicAD" style="margin:10px auto"></div>
+  <div class="commend mt1">
+   <dl class="tbox light">
+    <dt class='light'><strong>推荐内容</strong></dt>
+    <dd class='light'>
+     <ul class="d4">
+      <li><a href="/91code/python/django/2013/0414/django_15.html">第十五章 django 缓存机制</a>
+       <p>动态网站的问题就在于它是动态的。 也就是说每次用户访问一个...</p>
+      </li>
+<li><a href="/91code/python/django/2013/0414/django_14.html">第十四章 django 会话、用户和注册</a>
+       <p>是时候承认了： 我们有意的避开了Web开发中极其重要的方面。...</p>
+      </li>
+<li><a href="/91code/python/django/2013/0414/django_13.html">第十三章 django输出非HTML内容</a>
+       <p>通常当我们谈到开发网站时，主要谈论的是HTML。当然，Web远不只...</p>
+      </li>
+<li><a href="/91code/python/django/2013/0414/django_12.html">第二十章 部署Django</a>
+       <p>本章包含创建一个django程序最必不可少的步骤 在服务器上部署它...</p>
+      </li>
+<li><a href="/91code/python/django/2013/0414/django_11.html">第十一章：django通用视图</a>
+       <p>这里需要再次回到本书的主题： 在最坏的情况下， Web 开发是一...</p>
+      </li>
+<li><a href="/91code/python/django/2013/0414/django_9.html">第九章：django模版高级进阶</a>
+       <p>虽然大多数和Django模板语言的交互都是模板作者的工作，但你可...</p>
+      </li>
+
+     </ul>
+    </dd>
+   </dl>
+  </div>
+  <!-- /commend -->
+  <div class="hot mt1">
+   <dl class="tbox light">
+    <dt class='light'><strong>热点内容</strong></dt>
+    <dd class='light'>
+     <ul class="c1 ico2">
+      <li><a href="/91code/python/django/2013/0414/django_12.html">第二十章 部署Django</a></li>
+<li><a href="/91code/python/django/2013/0414/django_6.html">第六章：django Admin</a></li>
+<li><a href="/91code/python/django/2013/0414/django_14.html">第十四章 django 会话、用户</a></li>
+<li><a href="/91code/python/django/2013/0414/django_10.html">第十章 django模型高级进阶</a></li>
+<li><a href="/91code/python/django/2013/0414/python_7.html">第七章：django表单</a></li>
+<li><a href="/91code/python/django/2013/0414/2057.html">第三章 django的视图和URL配</a></li>
+<li><a href="/91code/python/django/2012/0913/109.html">第一章：介绍Django</a></li>
+<li><a href="/91code/python/django/2012/0914/110.html">第二章:Django入门篇</a></li>
+<li><a href="/91code/python/django/2013/0414/django_13.html">第十三章 django输出非HTM</a></li>
+<li><a href="/91code/python/django/2013/0414/django_5.html">第五章 django模型</a></li>
+
+     </ul>
+    </dd>
+   </dl>
+  </div>
+  <div id="contentRtPicAD2" style="margin:10px auto"><a href="http://www.aipython.com" target="_blank"><img src="/uploads/litimg/python_ad.gif" width="240" height="108" border="0" /></a></div>
+ </div>
+ <!-- /pright -->
+</div>
+<div id="innerfooterAD2" style="margin:10px auto; width:726px"></div>
+
+<!-- //底部模板 -->
+<div class="footer w960 center mt1 clear">
+    <div class="footer_left"></div>
+    <div class="footer_body">
+	<p class="powered">    
+		<div class="copyright">Copyright &copy; 2007-2012 91code 版权所有&nbsp;&nbsp;|
+		<script type="text/javascript">var _bdhmProtocol = (("https:" == document.location.protocol) ? " https://" : " http://");
+document.write(unescape("%3Cscript src='" + _bdhmProtocol + "hm.baidu.com/h.js%3Fc4c388f026afcf67556a9b54a4f7be44' type='text/javascript'%3E%3C/script%3E"));</script>
+</div></p>        
+   </div>
+   <div class="footer_right"></div>
+</div>
+<!-- Baidu Button BEGIN -->
+<script type="text/javascript" id="bdshare_js" data="type=slide&amp;img=6&amp;pos=right&amp;uid=6675772" ></script>
+<script type="text/javascript" id="bdshell_js"></script>
+<script type="text/javascript">
+document.getElementById("bdshell_js").src = "http://bdimg.share.baidu.com/static/js/shell_v2.js?cdnversion=" + Math.ceil(new Date()/3600000);
+</script>
+<!-- Baidu Button END -->
+<!-- /footer -->
+</body>
+</html>
