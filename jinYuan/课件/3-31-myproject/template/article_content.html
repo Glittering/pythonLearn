@@ -1,0 +1,27 @@
+{% extends 'article_base.html' %}
+
+{% block title %}
+    article_content
+{% endblock %}
+
+{% block middle_left %}
+    {% if article.img %}
+        <img src = "/static/{{ article.img }}">
+    {% else %}
+        <p>
+            The photo is not found.
+        </p>
+    {% endif %}
+{% endblock %}
+
+{% block middle_right %}
+    <p>
+        {{ article.title }}
+    </p>
+    <p>
+        {{ article.author }}
+    </p>
+    <p>
+        {{ article.content }}
+    </p>
+{% endblock %}

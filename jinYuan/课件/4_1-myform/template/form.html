@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>
+            form
+        </title>
+    </head>
+    <body>
+        <form action = "" method = "post">
+            <label>
+                name:
+            </label>
+            <input type = "text" name = "name">
+            <label>
+                age:
+            </label>
+            <input type = "text" name = "age">
+            <label>
+                gender:
+            </label>
+            <input type = "text" name = "gender">
+            <input type = "submit">
+        </form>
+{#        post:{{ request.POST }}#}
+{#        <br>#}
+{#        get:{{ request.GET }}#}
+{#        <br>#}
+{#        name:{{ name }}#}
+{#        {% ifequal jieguo 0 %}#}
+{#            <script>#}
+{#                alert('请注册')#}
+{#            </script>#}
+{#        {% endifequal %}#}
+        {% ifequal jieguo 1 %}
+            <script>
+                alert('请填写完整信息')
+            </script>
+        {% endifequal %}
+        {% ifequal jieguo 2 %}
+            <script>
+                alert('注册成功')
+            </script>
+        {% endifequal %}
+
+    </body>
+</html>

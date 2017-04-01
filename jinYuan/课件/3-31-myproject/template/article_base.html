@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>
+            {% block title %}
+                article_base
+            {% endblock %}
+        </title>
+        {% block css %}
+            <link rel = "stylesheet" href = "/static/css/arti_base.css">
+        {% endblock %}
+    </head>
+    <body>
+        <div class = "top">
+            <img src = "/static/image/banner.jpg">
+            <ul class = "clearfix">
+                <li>
+                    <a href="">首页</a>
+                </li>
+                <li>
+{#                    <a href="/article_list">文章目录</a>#}
+                    <a href="{% url 'hello' %}">文章目录</a>
+                </li>
+                <li>
+                    <a href="">图片</a>
+                </li>
+                <li>
+                    <a href="">关于我</a>
+                </li>
+            </ul>
+        </div>
+        <div class = "middle clearfix">
+            <div class = "middle_left">
+                {% block middle_left %}
+
+                {% endblock %}
+            </div>
+            <div class = "middle_right">
+                {% block middle_right %}
+
+                {% endblock %}
+            </div>
+        </div>
+        <div class = "bottom">
+
+        </div>
+    </body>
+</html>

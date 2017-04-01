@@ -1,0 +1,41 @@
+{% extends 'article_base.html' %}
+
+{% block title %}
+    article_list
+{% endblock %}
+
+{% block css %}
+    <link rel = "stylesheet" href = "/static/css/arti_base.css">
+    <link rel = "stylesheet" href = "/static/css/arti_list.css">
+{% endblock %}
+
+
+{% block middle_left %}
+    <ul>
+        <li>
+            <a href = "">名人传记</a>
+        </li>
+        <li>
+            <a href = "">散文杂谈</a>
+        </li>
+    </ul>
+{% endblock %}
+
+{% block middle_right %}
+    <table>
+        <tr>
+            <th>文章标题</th>
+            <th>文章作者</th>
+        </tr>
+        {% for i in data %}
+            <tr>
+                <td>
+                    <a href = "/article_content/{{ i.id }}">{{ i.title }}</a>
+                </td>
+                <td>
+                    {{ i.author }}
+                </td>
+            </tr>
+        {% endfor %}
+    </table>
+{% endblock %}
