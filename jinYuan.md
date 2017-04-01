@@ -256,6 +256,25 @@ urlopen 可以打开 r = urllib2.Request(url)
 5. enumerate() 枚举
     enumerate(l,3)  l is a list
 
+------------
+#2017年 03月 30日 星期四 19:45:56 CST
+##settings
+1. STATICFILES_DIRS = [os.path.join(BASE_DIR,'static').replace('\\','/')]
+2. STATIC_URL = '/static/'
+3. MEDIA_URL = '/media/'
+4. MEDIA_ROOT = os.path.join(BASE_DIR, 'static').replace('\\','/')
+##models
+1. class Meta:    verbose_name_plural = ''
+2. __str__(self)    __unicode__-->old
+##admin
+1. 显示数据内容：list_display=['id','name']
+2. 查询器：search_fields=['name','age']
+3. 右侧过滤器：list_filter=['date','age']
+4. 数据上方的时间条：date_hierarchy='date'
+5. 数据排序方式：ordering=['age']
+6. 注册页面：fields=['name','age']
+7. ManyToManyField样式：filter_horizontal=['teacher']
+8. What's this? : fields=['name','age']
 
 
 
