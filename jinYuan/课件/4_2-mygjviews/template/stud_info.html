@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>
+            {% if gender == 'male' %}
+                男生版
+            {% else %}
+                女生版
+            {% endif %}
+        </title>
+    </head>
+    <body>
+        <a href = "{% url 'male' %}">男生版</a>
+        <a href = "/woman_info">女生版</a>
+        <table>
+            <tr>
+                <th>名字</th>
+                <th>年龄</th>
+                <th>民族</th>
+                <th>专业</th>
+            </tr>
+            {% for i in info %}
+                <tr>
+                    <td>
+                        {{ i.name }}
+                    </td>
+                    <td>
+                        {{ i.age }}
+                    </td>
+                    <td>
+                        {{ i.nation }}
+                    </td>
+                    <td>
+                        {{ i.major }}
+                    </td>
+                </tr>
+            {% endfor %}
+        </table>
+        {{ request.user }}
+    </body>
+</html>

@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title></title>
+    </head>
+    <body>
+        <form action = "" method = "post">
+            <label>
+                username:
+            </label>
+            <input type = "text" name = "username">
+{#            {% if error %}#}
+{#             <p style = "color:red;">首字符必须是字母并且。。。</p>#}
+{#            {% endif %}#}
+            <label>
+                password:
+            </label>
+            <input type = "password" name = "passwd">
+            <input type = "submit">
+        </form>
+{#        {% if error %}#}
+{#             <p>首字符必须是字母并且。。。</p>#}
+{#        {% endif %}#}
+        {% for i in errors %}
+             <p>
+                {{ i }}
+             </p>
+        {% endfor %}
+    </body>
+</html>
