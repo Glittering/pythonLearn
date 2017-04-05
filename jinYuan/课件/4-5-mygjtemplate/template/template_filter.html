@@ -1,0 +1,17 @@
+{% load xiaoqiang %}
+<!DOCTYPE html>
+<html>
+    <head>
+        <title></title>
+    </head>
+    <body>
+        name:{{ name|cut:'a' }}
+        <br>
+        {% for i in num_list %}
+            {{ i|zfill:10 }}
+            <br>
+        {% endfor %}
+        {{ name|px }}
+
+    </body>
+</html>

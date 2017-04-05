@@ -1,0 +1,15 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title></title>
+    </head>
+    <body>
+        {{ name }}
+{#        <p>进入到安全模式</p>#}
+{#        {{ name|safe }}#}
+        {% autoescape on %}
+            {{ name }}
+        {% endautoescape %}
+        &gt;
+    </body>
+</html>
