@@ -1,0 +1,26 @@
+{% extends 'base.html' %}
+
+{% block title %}
+    成功案例
+{% endblock %}
+
+{% block right %}
+    <div class="show-right fr">
+        <h3><span>当前位置：</span><a href = "/index"> 首页</a>>>昊阳佳业成功案例</h3>
+        <ol class="clearfix">
+            <li class="x"><a href="#"><img src="/static/{{ data1.img }}"><br>{{ data1.introduce }}</a></li>
+            {% for i in data2 %}
+                <li><a href="#"><img src="/static/{{ i.img }}"><br>{{ i.introduce }}</a></li>
+            {% endfor %}
+            <li class="x"><a href="#"><img src="/static/{{ data3.img }}"><br>{{ data3.introduce }}</a></li>
+            {% for i in data4 %}
+                <li><a href="#"><img src="/static/{{ i.img }}"><br>{{ i.introduce }}</a></li>
+            {% endfor %}
+            <li class="x"><a href="#"><img src="/static/{{ data5.img }}"><br>{{ data5.introduce }}</a></li>
+            {% for i in data6 %}
+                <li><a href="#"><img src="/static/{{ i.img }}"><br>{{ i.introduce }}</a></li>
+            {% endfor %}
+        </ol>
+    </div>
+{% endblock %}
+

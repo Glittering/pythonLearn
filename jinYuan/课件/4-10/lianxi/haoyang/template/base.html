@@ -1,0 +1,77 @@
+<!doctype html>
+<html>
+<head>
+<meta charset="utf-8">
+<title>
+    {% block title %}
+        base
+    {% endblock %}
+</title>
+<link rel="stylesheet" href="/static/css/base.css">
+<link rel="stylesheet" href="/static/css/comman.css">
+</head>
+
+<body>
+<!--header 开始-->
+<div class="header wid">
+	<img src="/static/image/logo.png" class="logo">
+	<p class="p1 clearfix">全国分公司<span>合肥 西安 太原 天津 长春 唐山 石家庄 凯洛特别墅设计</span></p>
+	<p class="p2 clearfix"><input type="text" class="text"><input type="image" src="/static/image/button.png"><span>新中式 欧式 简约</span></p>
+</div>
+<!--header 结束-->
+<!--nav 开始-->
+<div style=" background:url(/static/image/nav-bg.png) repeat-x left; height:40px;">
+	<div class="nav wid">
+		<ul class="clearfix">
+			<li class="f"><a href="/index">网站首页</a></li>
+			<li><a href="/about_our">关于我们</a></li>
+			<li><a href="/news">新闻动态</a></li>
+			<li><a href="/jingying">经营项目</a></li>
+			<li><a href="/succes">成功案例</a></li>
+			<li><a href="/zhiliang">质量保证</a></li>
+			<li><a href="/show">产品展示</a></li>
+			<li><a href="/contact">联系我们</a></li>
+		</ul>
+	</div>
+</div>
+<!--nav 结束-->
+<!--banner 开始-->
+<div class="banner">
+	<img src="/static/image/banner.png">
+</div>
+<!--banner 结束-->
+<!--content 开始-->
+<div class="content wid clearfix">
+	<!--left 开始-->
+	<div class="commen fl">
+		<h2>昊阳佳业建筑</h2>
+		<dl>
+			<dt><img src="/static/image/dt-img.png">按材质分</dt>
+			<dd><a href="#">金刚砂耐磨地坪</a></dd>
+			<dd><a href="#">耐磨地坪施工工艺</a></dd>
+			<dd><a href="#">环氧地坪环氧沙浆地坪</a></dd>
+			<dd><a href="#">墙面粉刷墙面修补</a></dd>
+			<dd><a href="#">外墙粉刷</a></dd>
+			<dd><a href="#">二手房粉刷</a></dd>
+			<dd><a href="#">防水制作屋面防水工程</a></dd>
+			<dd><a href="#">水泥自流平制作</a></dd>
+			<dd><a href="#">地面瓷砖翻新</a></dd>
+		</dl>
+	</div>
+	<!--left 结束-->
+	<!--right 开始-->
+    {% block right %}
+
+    {% endblock %}
+	<!--right 结束-->
+</div>
+<!--content 结束-->
+
+<!--footer 开始-->
+<div class="footer wid ab">
+	<p><a href="#">关于今朝</a> | <a href="#">企业文化</a> | <a href="#">人才招聘</a> | <a href="#">联系我们</a> | <a href="#">员工生活</a> | <a href="#">装修指南</a> | <a href="#">合作伙伴</a><img src="/static/image/baidu.png"></p>
+	<p>售前咨询热线 : 400-678-9878 Copyright&copy;2000-2015 www.jzzs.com.cn All Rights Reserved 京ICP证06028416号</p>
+</div>
+<!--footer 结束-->
+</body>
+</html>

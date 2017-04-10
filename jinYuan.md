@@ -277,6 +277,17 @@ urlopen 可以打开 r = urllib2.Request(url)
 8. What's this? : fields=['name','age']
 
 
+#2017年 04月 10日 星期一 09:07:29 CST
+1. cgi 通用，公共网关接口
+2. URL:统一资源定位器
+- 协议
+- 网址
+- 路径
+3. URI:统一资源标识符
+##cgi 启动
+4. python -m CGIHTTPServer
+5. 配置服务器上 
+
 
 
 

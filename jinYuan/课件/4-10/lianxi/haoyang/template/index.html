@@ -1,0 +1,118 @@
+<!doctype html>
+<html>
+<head>
+<meta charset="utf-8">
+<title>首页</title>
+<link rel="stylesheet" href="/static/css/base.css">
+<link rel="stylesheet" href="/static/css/comman.css">
+</head>
+
+<body>
+<!--header 开始-->
+
+<div class="header wid">
+	<img src="/static/{{ logo.img }}" class="logo">
+	<p class="p1 clearfix">全国分公司<span>合肥 西安 太原 天津 长春 唐山 石家庄 凯洛特别墅设计</span></p>
+	<p class="p2 clearfix"><input type="text" class="text"><input type="image" src="/static/{{ search.img }}"><span>新中式 欧式 简约</span></p>
+</div>
+<!--header 结束-->
+<!--nav 开始-->
+<div style=" background:url(/static/image/nav-bg.png) repeat-x left; height:40px;">
+	<div class="nav wid">
+		<ul class="clearfix">
+			<li class="f"><a href="/index">网站首页</a></li>
+			<li><a href="/about_our">关于我们</a></li>
+			<li><a href="/news">新闻动态</a></li>
+			<li><a href="/jingying">经营项目</a></li>
+			<li><a href="/succes">成功案例</a></li>
+			<li><a href="/zhiliang">质量保证</a></li>
+			<li><a href="/show">产品展示</a></li>
+			<li><a href="/contact">联系我们</a></li>
+		</ul>
+	</div>
+</div>
+<!--nav 结束-->
+<!--banner 开始-->
+<div class="banner">
+	<img src="/static/{{ ban.img }}">
+</div>
+<!--banner 结束-->
+<!--content 开始-->
+<div class="content wid">
+	<!--top 开始-->
+	<div class="top clearfix">
+		<img src="/static/{{ top1.img }}" class="l fl">
+		<div class="cen fl">
+			<p class="clearfix"><img src="/static/{{ top2.img }}"><span><b>【揭秘】厨卫集成吊顶什么裁量比较好？该怎么选择吊顶材料？</b><br>厨卫的吊顶装修一直以来都是倾向于选择集成吊顶的方式，集成吊顶有很多材料的分类：PVC板、铝扣板、石膏板、桑拿板、等等。<br>厨卫集成吊顶材料…</span></p>
+			<p class="clearfix p1"><img src="/static/{{ top2.img }}"><span><b>【揭秘】厨卫集成吊顶什么裁量比较好？该怎么选择吊顶材料？</b><br>厨卫的吊顶装修一直以来都是倾向于选择集成吊顶的方式，集成吊顶有很多材料的分类：PVC板、铝扣板、石膏板、桑拿板、等等。<br>厨卫集成吊顶材料…</span></p>
+			<ol>
+                {% for i in top_ol %}
+				    <li><a href="#">{{ i.content }}</a><span>{{ i.date|date:"Y-m-d" }}</span></li>
+			    {% endfor %}
+            </ol>
+		</div>
+		<img src="/static/{{ top3.img }}" class="r fr">
+	</div>
+	<!--top 结束-->
+	<!--bottom 开始-->
+	<div class="bottom clearfix">
+		<div class="left fl">
+			<div class="left-top">
+				<h2><span>全系列装修解决方案</span><a href="#">了解更多>></a></h2>
+				<p>
+                    {% for i in left_top %}
+                        <img src="/static/{{ i.img }}">
+                    {% endfor %}
+                </p>
+			</div>
+			<div class="left-bottom clearfix">
+				<h2><span>精品案例展示</span><a href="#">更多案例>></a></h2>
+				<p>
+                    <img src="/static/{{ left_bot1.img }}">
+                    <img src="/static/{{ left_bot2.img }}" class="img1">
+                    <span>大钟寺设计部<br>设计师：刘宗汉<br>职称：副主任设计师<br>案例名称：人济山庄<br>设计风格：欧式</span>
+                </p>
+				<ol class="clearfix">
+					<li class="one"><img src="/static/{{ bott.img }}"><br><a href="#">{{ bott.introduce }}</a></li>
+					{% for i in botto %}
+                        <li><img src="/static/{{ i.img }}"><br><a href="#">{{ i.introduce }}</a></li>
+				    {% endfor %}
+                </ol>
+			</div>
+		</div>
+		<div class="right fr">
+			<div class="right-top">
+				<h3><span>企业动态</span><a href="#">更多>></a></h3>
+				<div style=" background:#fffcf3; margin:4px; padding-left:15px; padding-right:22px;">
+				<p class="clearfix"><img src="/static/image/r-timg.png"><span>华夏家博会— —点滴之处见今朝精神<br><a href="#">详细>></a></span></p>
+				<ol>
+                    {% for i in right_top %}
+					    <li><a href="#">{{ i.content }}</a><span>{{ i.date|date:"Y-m-d" }}</span></li>
+				    {% endfor %}
+                </ol>
+				</div>
+			</div>
+			<div class="right-top right-bottom">
+				<h3><span>企业动态</span><a href="#">更多>></a></h3>
+				<div style=" background:#f0f0f0; margin:4px; padding-left:15px; padding-right:22px;">
+				<ol>
+                    {% for i in right_bottom %}
+					    <li><a href="#">{{ i.content }}</a><span>{{ i.date|date:"Y-m-d" }}</span></li>
+				    {% endfor %}
+                </ol>
+				</div>
+			</div>
+		</div>
+	</div>
+	<!--bottom 结束-->	
+</div>
+<!--content 结束-->
+
+<!--footer 开始-->
+<div class="footer wid">
+	<p><a href="#">关于今朝</a> | <a href="#">企业文化</a> | <a href="#">人才招聘</a> | <a href="#">联系我们</a> | <a href="#">员工生活</a> | <a href="#">装修指南</a> | <a href="#">合作伙伴</a><img src="/static/{{ foot_img.img }}"></p>
+	<p>售前咨询热线 : 400-678-9878 Copyright&copy;2000-2015 www.jzzs.com.cn All Rights Reserved 京ICP证06028416号</p>
+</div>
+<!--footer 结束-->
+</body>
+</html>

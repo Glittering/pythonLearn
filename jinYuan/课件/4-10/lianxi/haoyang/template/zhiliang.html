@@ -1,0 +1,19 @@
+{% extends 'base.html' %}
+
+{% block title %}
+    质量保证
+{% endblock %}
+
+{% block right %}
+    <div class="show-right fr about">
+		<h3><span>当前位置：</span><a href = "/index"> 首页</a>>>昊阳佳业质量保证</h3>
+		<h4>质量保证</h4>
+        {% for i in data %}
+            <p class="p3">{{ i.content }}</p>
+        {% endfor %}
+        <p class="p3 p">{{ last_p.content }}</p>
+        <p class="r">总页数：<font color="#008b10">1</font> 第  1  页 TOP</p>
+    </div>
+{% endblock %}
+
+

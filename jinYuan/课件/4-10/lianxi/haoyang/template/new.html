@@ -1,0 +1,30 @@
+{% extends 'base.html' %}
+
+{% block title %}
+    新闻动态
+{% endblock %}
+
+{% block right %}
+    <div class="show-right fr new">
+        <h3><span>当前位置：</span><a href = "/index">首页</a>>>昊阳佳业新闻资讯</h3>
+        <ul class="clearfix">
+            {% for i in data %}
+                <li><a href="#">{{ i.title }}</a><span>{{ i.date|date:"Y-m-d" }}</span></li>
+            {% endfor %}
+        </ul>
+        <p class="fen">
+            {% for i in fenye_img_zuo %}
+                <a href="#"><img src="/static/{{ i.img }}"></a>
+            {% endfor %}
+            <a href="#" class="active">1</a>
+            <a href="#">2</a>
+            <a href="#">3</a>
+            <a href="#">4</a>
+            <a href="#">5</a>
+            {% for i in fenye_img_you %}
+                <a href="#"><img src="/static/{{ i.img }}"></a>
+            {% endfor %}
+        </p>
+    </div>
+{% endblock %}
+
