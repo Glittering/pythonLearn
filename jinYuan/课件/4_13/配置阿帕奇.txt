@@ -1,0 +1,54 @@
+配置appserv:
+
+1、在modules中加入mod_wsgi.so
+
+2、在httpd.conf中添加mod_wsgi.so
+LoadModule wsgi_module modules/mod_wsgi.so
+
+3、在最后面
+
+WSGIScriptAlias/项目路径/mybook/mybook/wsgi.py   -->项目wsgi.py文件的路径
+WSGIPythonPath/项目路径/mybook    -->指向manage.py路径层
+
+
+32位：
+
+<Directory 项目路径/mybook/mybook>
+<Files wsgi.py>
+	order allow,deny
+	Allow From all
+</Files>
+</Directory>
+
+############################################################################
+
+64位：
+
+WSGIScriptAlias / "F:/myblog/myblog/wsgi.py"
+WSGIPythonPath F:/myblog
+
+
+<Directory F:/myblog/myblog>
+<Files wsgi.py>
+    order allow,deny
+    Allow From all
+</Files>
+</Directory>
+
+
+Alias /static  "F:/myblog/static"
+<Directory "F:/myblog/static">
+    Options None
+    AllowOverride None
+    order allow,deny
+    Allow From all
+</Directory>
+
+
+Alias /media/ F:/myblog/media
+<Directory "F:/myblog/media">
+    Options None
+    AllowOverride None
+    order allow,deny
+    Allow From all
+</Directory>

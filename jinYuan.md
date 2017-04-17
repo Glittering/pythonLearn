@@ -289,6 +289,28 @@ urlopen 可以打开 r = urllib2.Request(url)
 5. 配置服务器上 
 
 
+#2017年 04月 13日 星期四 14:18:33 CST
+##cache
+1. memcache
+CACHES=...
+BACKEND='memcache://ip1:port1; ip2:port2'
+2. database cache
+python3 manage.py createcachetable table_name
+BACKEND='db://mycache'
+3. file_sys
+BACKEND='file://file_path'
+4. local mem
+BACKEND='locmem://'
+5. dummy mem
+BACKEND='dummy://'
+
+*parameter:*timeout max_entries cull_frequency
+
+## Site Level Cache
+
+
+
+
 
 
 #the different betten 2 and 3
